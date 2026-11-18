@@ -988,7 +988,7 @@ export default function ComponentDetail({
           </div>
         </section>
 
-        <section className="grid gap-6 md:grid-cols-[1fr_280px]">
+        <section className="space-y-4">
           <div className="space-y-4">
             <div>
               <h2 className="text-lg font-semibold tracking-tight">Implementation</h2>
@@ -1013,39 +1013,6 @@ export default function ComponentDetail({
             </div>
           </div>
 
-          <aside className="space-y-4">
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm">Component details</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3 text-sm">
-                <div className="flex justify-between gap-3">
-                  <span className="text-muted-foreground">Category</span>
-                  <span className="font-medium">{component.category}</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between gap-3">
-                  <span className="text-muted-foreground">Component</span>
-                  <code className="text-xs">{component.id}</code>
-                </div>
-                <Separator />
-                <div className="space-y-1">
-                  <p className="text-muted-foreground">Source location</p>
-                  <code className="break-all text-xs">src/components/ui/{component.id}.tsx</code>
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Implementation tips</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-xs leading-5 text-muted-foreground">
-                <p>Use a visible label whenever the component collects input.</p>
-                <p>Keep interaction states clear and provide feedback after important actions.</p>
-                <p>Prefer the component's built-in variants before adding custom styles.</p>
-              </CardContent>
-            </Card>
-          </aside>
         </section>
 
         <div className="flex flex-wrap items-center justify-between gap-3 border-t pt-6">
