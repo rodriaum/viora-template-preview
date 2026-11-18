@@ -2,8 +2,6 @@ import * as React from "react"
 
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-
-
 import SiteFooter from "@/components/site-footer"
 import SiteHeader from "@/components/site-header"
 
