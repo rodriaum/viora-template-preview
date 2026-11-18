@@ -73,7 +73,12 @@ function Button({
   return (
     <ButtonPrimitive
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+        (variant === "default" || variant === "destructive") &&
+          size === "default" &&
+          "h-9 min-h-9 max-h-9 gap-1.5 px-3 py-0 text-sm leading-none"
+      )}
       style={emphasisStyle ? { ...emphasisStyle, ...style } : style}
       {...props}
     >
@@ -83,7 +88,7 @@ function Button({
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 rounded-[inherit] bg-linear-to-b from-[var(--button-emphasis-gradient-start)] to-[var(--button-emphasis-gradient-end)] transition-colors group-hover/button:from-[var(--button-emphasis-bg)]"
           />
-          <span className="relative z-10 inline-flex items-center gap-1.5">
+          <span className="relative z-10 inline-flex h-full items-center gap-1.5 leading-none">
             {children}
           </span>
         </>
