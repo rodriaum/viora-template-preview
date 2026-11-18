@@ -53,10 +53,16 @@ export default function SiteHeader({
 
         <nav className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
           <a
-            href={isHome ? "#playground" : `${homeHref}#playground`}
+            href={homeHref}
+            onClick={(event) => {
+              if (onNavigate) {
+                event.preventDefault()
+                onNavigate("/")
+              }
+            }}
             className="transition-colors hover:text-foreground"
           >
-            Playground
+            Home
           </a>
           <a
             href={`${homeHref}components`}
