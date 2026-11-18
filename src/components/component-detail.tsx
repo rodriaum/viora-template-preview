@@ -122,6 +122,14 @@ const categoryDescriptions: Record<string, string> = {
 }
 
 const componentDescriptions: Record<string, string> = {
+  "aspect-ratio":
+    "Reserve a predictable space for media such as images and video. Aspect ratio containers prevent content from jumping while assets load.",
+  calendar:
+    "Let users browse dates and select a day or a range. Calendars work well for scheduling, booking, and date-based filters.",
+  card:
+    "Group related information and actions into a self-contained surface. Cards help users scan dashboards, settings, and collections of content.",
+  separator:
+    "Create a subtle visual break between related groups. Use separators to improve structure without adding unnecessary visual weight.",
   accordion:
     "Organise related information into expandable sections. An accordion keeps a page compact while allowing users to reveal the details they need.",
   alert:
@@ -161,6 +169,62 @@ const componentDescriptions: Record<string, string> = {
 }
 
 const componentSnippets: Record<string, string> = {
+  "aspect-ratio": `import { AspectRatio } from "@/components/ui/aspect-ratio"
+
+export function Example() {
+  return (
+    <AspectRatio ratio={16 / 9}>
+      <img
+        src="/images/cover.jpg"
+        alt="Project cover"
+        className="size-full rounded-xl object-cover"
+      />
+    </AspectRatio>
+  )
+}`,
+  calendar: `import { Calendar } from "@/components/ui/calendar"
+
+export function Example() {
+  return (
+    <Calendar
+      mode="single"
+      selected={new Date()}
+      className="rounded-xl border"
+    />
+  )
+}`,
+  card: `import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+export function Example() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Project overview</CardTitle>
+        <CardDescription>Track your latest project activity.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        Add your content and actions here.
+      </CardContent>
+    </Card>
+  )
+}`,
+  separator: `import { Separator } from "@/components/ui/separator"
+
+export function Example() {
+  return (
+    <div className="space-y-4">
+      <p>Account settings</p>
+      <Separator />
+      <p className="text-muted-foreground">Security preferences</p>
+    </div>
+  )
+}`,
   accordion: `import {
   Accordion,
   AccordionContent,
