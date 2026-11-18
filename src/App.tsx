@@ -253,19 +253,12 @@ function App() {
         <section className="flex flex-col justify-between gap-4 border-b pb-7 sm:flex-row sm:items-end">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <Badge variant="secondary">Viora Studio</Badge>
-              <span className="text-xs text-muted-foreground">
-                React · Tailwind
-              </span>
             </div>
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
               UI Components
             </h1>
             <p className="text-sm text-muted-foreground">
               Interactive component library and examples.
-            </p>
-            <p className="max-w-xl text-xs leading-5 text-muted-foreground">
-              Select <span className="font-medium text-foreground">Components</span> in the header to browse the full library by category and open each component&apos;s preview.
             </p>
           </div>
 
@@ -289,7 +282,6 @@ function App() {
         <section id="playground" className="scroll-mt-20 space-y-5">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold tracking-tight">Playground</h2>
-            <Badge variant="outline">Interactive</Badge>
           </div>
 
           <Tabs
