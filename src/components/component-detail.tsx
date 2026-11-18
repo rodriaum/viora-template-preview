@@ -602,10 +602,6 @@ export default function ComponentDetail({
                 </Breadcrumb>
 
                 <div className="space-y-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Badge variant="secondary">{component.category}</Badge>
-                    <span className="text-xs text-muted-foreground">Viora UI</span>
-                  </div>
                   <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
                     {component.name}
                   </h1>
@@ -620,13 +616,12 @@ export default function ComponentDetail({
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-lg font-semibold tracking-tight">
-                    Live preview
+                    Preview
                   </h2>
                   <p className="text-sm text-muted-foreground">
                     Try the component and explore its behaviour.
                   </p>
                 </div>
-                <Badge variant="outline">Interactive</Badge>
               </div>
               <div className="flex min-h-64 items-center justify-center rounded-2xl border bg-card p-6 sm:p-10">
                 <div className="flex w-full items-center justify-center">
@@ -634,22 +629,6 @@ export default function ComponentDetail({
                 </div>
               </div>
             </section>
-
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t pt-6">
-              <Button variant="outline" onClick={() => onNavigate("/")}>
-                <ArrowLeft className="mr-2 size-4" />
-                Back to home
-              </Button>
-              <a
-                href="https://github.com/viora-studio/template-preview/tree/master/src/components/ui"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                Browse component source
-                <ArrowUpRight className="size-3.5" />
-              </a>
-            </div>
           </main>
         </SidebarInset>
       </SidebarProvider>

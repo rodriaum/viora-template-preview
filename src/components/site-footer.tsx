@@ -1,5 +1,3 @@
-import { ArrowUpRight } from "lucide-react"
-
 export default function SiteFooter() {
   return (
     <footer className="flex flex-col justify-between gap-3 border-t pt-5 text-xs text-muted-foreground sm:flex-row">
@@ -9,13 +7,12 @@ export default function SiteFooter() {
       </span>
 
       <a
-        href="https://github.com/viora-studio/template-preview"
+        href="https://github.com/viora-studio"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
       >
-        View Source
-        <ArrowUpRight className="size-3" />
+        View Github
       </a>
     </footer>
   )

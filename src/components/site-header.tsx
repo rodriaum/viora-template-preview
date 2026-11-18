@@ -88,7 +88,6 @@ export default function SiteHeader({
           >
             <Code2 className="mr-2 size-4" />
             <span className="hidden sm:inline">Source</span>
-            <ArrowUpRight className="ml-1 size-3.5" />
           </Button>
         </div>
       </div>
