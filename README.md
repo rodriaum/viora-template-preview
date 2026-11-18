@@ -31,3 +31,9 @@ pnpm dev
   <br />
   Software Developer
 </p>
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+Copyright (c) 2026 Viora Studio
