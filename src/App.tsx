@@ -4,12 +4,11 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 
 
-
+import SiteFooter from "@/components/site-footer"
+import SiteHeader from "@/components/site-header"
 
 const ComponentDetail = React.lazy(() => import("@/components/component-detail"))
 const Playground = React.lazy(() => import("@/components/playground"))
-import SiteFooter from "@/components/site-footer"
-import SiteHeader from "@/components/site-header"
 
 const componentDefinitions = [
   ["Accordion", "Layout"],
