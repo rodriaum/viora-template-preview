@@ -9,15 +9,11 @@ import {
   ChevronLeft,
   ChevronRight,
   CircleHelp,
-  Code2,
   FileText,
   Info,
-  Layers3,
   Loader2,
-  Moon,
   MoreHorizontal,
   Search,
-  Sun,
   X,
 } from "lucide-react"
 
@@ -84,8 +80,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { useTheme } from "@/components/theme-provider"
 import ComponentDetail from "@/components/component-detail"
+import SiteFooter from "@/components/site-footer"
+import SiteHeader from "@/components/site-header"
 
 const componentDefinitions = [
   ["Accordion", "Layout"],
@@ -194,27 +191,6 @@ function DemoCard({
   )
 }
 
-function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
-  const isDark =
-    theme === "dark" ||
-    (theme === "system" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches)
-
-  return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="size-9 rounded-full"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-    >
-      {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
-    </Button>
-  )
-}
-
 function App() {
   const [query, setQuery] = React.useState("")
   const [activeCategory, setActiveCategory] = React.useState("All")
@@ -284,7 +260,7 @@ function App() {
   }
 
   if (activeComponent) {
-    return <ComponentDetail component={activeComponent} onNavigate={navigate} />
+    return <ComponentDetail component={activeComponent} onNavigate={navigate} basePath={basePath} />
   }
 
   if (appPath === "/components" || appPath === "/components/") {
@@ -307,55 +283,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b bg-background/85 backdrop-blur-xl">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5">
-          <a
-            href="#"
-            className="flex items-center gap-2 font-semibold tracking-tight"
-          >
-            <span className="grid size-7 place-items-center">
-              <Layers3 className="size-4" />
-            </span>
-            <span>Viora</span>
-            <span className="font-normal text-muted-foreground">/ UI</span>
-          </a>
-
-          <nav className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
-            <a
-              href="#playground"
-              className="transition-colors hover:text-foreground"
-            >
-              Playground
-            </a>
-            <a
-              href="#components"
-              className="transition-colors hover:text-foreground"
-            >
-              Components
-            </a>
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-9"
-              onClick={() =>
-                window.open(
-                  "https://github.com/viora-studio/template-preview",
-                  "_blank",
-                  "noopener,noreferrer"
-                )
-              }
-            >
-              <Code2 className="mr-2 size-4" />
-              <span className="hidden sm:inline">Source</span>
-              <ArrowUpRight className="ml-1 size-3.5" />
-            </Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader isHome basePath={basePath} />
 
       <main className="mx-auto max-w-6xl space-y-12 px-5 py-10 sm:py-14">
         <section className="flex flex-col justify-between gap-4 border-b pb-7 sm:flex-row sm:items-end">
@@ -983,22 +911,7 @@ function App() {
           )}
         </section>
 
-        <footer className="flex flex-col justify-between gap-3 border-t pt-5 text-xs text-muted-foreground sm:flex-row">
-          <span>
-            © {new Date().getFullYear()} Viora Studio · All
-            rights reserved.
-          </span>
-
-          <a
-            href="https://github.com/viora-studio/template-preview"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
-          >
-            View Source
-            <ArrowUpRight className="size-3" />
-          </a>
-        </footer>
+        <SiteFooter />
       </main>
     </div>
   )
