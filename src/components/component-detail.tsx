@@ -1,8 +1,6 @@
 import * as React from "react"
 
 import {
-  ArrowLeft,
-  ArrowUpRight,
   Layers3,
   Search,
 } from "lucide-react"
@@ -48,8 +46,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarProvider,
-  SidebarTrigger,
+  SidebarProvider
 } from "@/components/ui/sidebar"
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -579,7 +576,6 @@ export default function ComponentDetail({
         <SidebarInset className="min-w-0 bg-background">
           <main className="mx-auto w-full max-w-5xl space-y-10 px-5 py-9 sm:py-12">
             <div className="flex items-start gap-3">
-              <SidebarTrigger className="mt-1 shrink-0" />
               <div className="min-w-0 flex-1 space-y-5">
                 <Breadcrumb>
                   <BreadcrumbList>
