@@ -22,16 +22,6 @@ pnpm install
 pnpm dev
 ```
 
-## Author
-
-<p align="center">
-  <img src="https://avatars.githubusercontent.com/u/119365213" alt="Rodrigo Ferreira" width="96" height="96" style="border-radius: 50%;" />
-  <br />
-  <strong>Rodrigo Ferreira</strong>
-  <br />
-  Software Developer
-</p>
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).

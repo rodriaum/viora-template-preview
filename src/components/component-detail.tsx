@@ -666,6 +666,7 @@ function ComponentPreview({ id }: { id: string }) {
           <Button variant="secondary">Secondary</Button>
           <Button variant="outline">Cancel</Button>
           <Button variant="destructive">Delete</Button>
+          <Button variant="secondary-destructive">Remove</Button>
         </div>
       )
     case "checkbox":

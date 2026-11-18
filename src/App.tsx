@@ -326,8 +326,11 @@ function App() {
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b bg-background/85 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5">
-          <a href="#" className="flex items-center gap-2 font-semibold tracking-tight">
-            <span className="grid size-7 place-items-center rounded-lg bg-primary text-primary-foreground">
+          <a
+            href="#"
+            className="flex items-center gap-2 font-semibold tracking-tight"
+          >
+            <span className="grid size-7 place-items-center">
               <Layers3 className="size-4" />
             </span>
             <span>Viora</span>
@@ -335,10 +338,16 @@ function App() {
           </a>
 
           <nav className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
-            <a href="#playground" className="transition-colors hover:text-foreground">
+            <a
+              href="#playground"
+              className="transition-colors hover:text-foreground"
+            >
               Playground
             </a>
-            <a href="#components" className="transition-colors hover:text-foreground">
+            <a
+              href="#components"
+              className="transition-colors hover:text-foreground"
+            >
               Components
             </a>
           </nav>
@@ -353,7 +362,7 @@ function App() {
                 window.open(
                   "https://github.com/viora-studio/template-preview",
                   "_blank",
-                  "noopener,noreferrer",
+                  "noopener,noreferrer"
                 )
               }
             >
@@ -370,7 +379,9 @@ function App() {
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Badge variant="secondary">Viora Studio</Badge>
-              <span className="text-xs text-muted-foreground">React · Tailwind</span>
+              <span className="text-xs text-muted-foreground">
+                React · Tailwind
+              </span>
             </div>
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
               UI Components
@@ -382,7 +393,9 @@ function App() {
 
           <div className="flex items-center gap-5 text-sm">
             <div>
-              <p className="text-xl font-semibold tabular-nums">{components.length}</p>
+              <p className="text-xl font-semibold tabular-nums">
+                {components.length}
+              </p>
               <p className="text-xs text-muted-foreground">Components</p>
             </div>
             <Separator orientation="vertical" className="h-9" />
@@ -424,6 +437,7 @@ function App() {
                   <Button variant="outline">Outline</Button>
                   <Button variant="ghost">Ghost</Button>
                   <Button variant="destructive">Destructive</Button>
+                  <Button variant="secondary-destructive">Secondary Destructive</Button>
                   <Button variant="link">Link</Button>
                 </div>
                 <Separator className="my-4" />
@@ -431,7 +445,11 @@ function App() {
                   <Button size="sm">Small</Button>
                   <Button>Default</Button>
                   <Button size="lg">Large</Button>
-                  <Button size="icon" variant="outline" aria-label="More actions">
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    aria-label="More actions"
+                  >
                     <MoreHorizontal />
                   </Button>
                 </div>
@@ -452,9 +470,13 @@ function App() {
                   </Avatar>
                   <div className="min-w-0">
                     <p className="text-sm font-medium">Rodrigo Ferreira</p>
-                    <p className="text-xs text-muted-foreground">Software Developer</p>
+                    <p className="text-xs text-muted-foreground">
+                      Software Developer
+                    </p>
                   </div>
-                  <Badge variant="secondary" className="ml-auto">Online</Badge>
+                  <Badge variant="secondary" className="ml-auto">
+                    Online
+                  </Badge>
                 </div>
               </DemoCard>
 
@@ -469,9 +491,7 @@ function App() {
                   </Alert>
                   <Alert variant="destructive">
                     <AlertTitle>Something went wrong</AlertTitle>
-                    <AlertDescription>
-                      Please try again.
-                    </AlertDescription>
+                    <AlertDescription>Please try again.</AlertDescription>
                   </Alert>
                 </div>
               </DemoCard>
@@ -645,7 +665,7 @@ function App() {
                 <div className="space-y-4">
                   <div className="flex justify-between text-sm">
                     <Label>Volume</Label>
-                    <span className="tabular-nums text-muted-foreground">
+                    <span className="text-muted-foreground tabular-nums">
                       {volume[0]}%
                     </span>
                   </div>
@@ -653,7 +673,7 @@ function App() {
                     value={volume}
                     onValueChange={(value) =>
                       setVolume(
-                        typeof value === "number" ? [value] : [...value],
+                        typeof value === "number" ? [value] : [...value]
                       )
                     }
                     max={100}
@@ -713,10 +733,16 @@ function App() {
                     <TabsTrigger value="account">Account</TabsTrigger>
                     <TabsTrigger value="security">Security</TabsTrigger>
                   </TabsList>
-                  <TabsContent value="account" className="pt-3 text-sm text-muted-foreground">
+                  <TabsContent
+                    value="account"
+                    className="pt-3 text-sm text-muted-foreground"
+                  >
                     Account preferences.
                   </TabsContent>
-                  <TabsContent value="security" className="pt-3 text-sm text-muted-foreground">
+                  <TabsContent
+                    value="security"
+                    className="pt-3 text-sm text-muted-foreground"
+                  >
                     Security preferences.
                   </TabsContent>
                 </Tabs>
@@ -724,12 +750,22 @@ function App() {
 
               <DemoCard title="Pagination">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Page 2 of 5</span>
+                  <span className="text-sm text-muted-foreground">
+                    Page 2 of 5
+                  </span>
                   <ButtonGroup>
-                    <Button size="icon" variant="outline" aria-label="Previous page">
+                    <Button
+                      size="icon"
+                      variant="outline"
+                      aria-label="Previous page"
+                    >
                       <ChevronLeft />
                     </Button>
-                    <Button size="icon" variant="outline" aria-label="Next page">
+                    <Button
+                      size="icon"
+                      variant="outline"
+                      aria-label="Next page"
+                    >
                       <ChevronRight />
                     </Button>
                   </ButtonGroup>
@@ -738,9 +774,15 @@ function App() {
 
               <DemoCard title="Navigation menu">
                 <div className="flex flex-wrap gap-2">
-                  <Button variant="secondary" size="sm">Overview</Button>
-                  <Button variant="ghost" size="sm">Projects</Button>
-                  <Button variant="ghost" size="sm">Settings</Button>
+                  <Button variant="secondary" size="sm">
+                    Overview
+                  </Button>
+                  <Button variant="ghost" size="sm">
+                    Projects
+                  </Button>
+                  <Button variant="ghost" size="sm">
+                    Settings
+                  </Button>
                 </div>
               </DemoCard>
 
@@ -748,11 +790,15 @@ function App() {
                 <div className="space-y-3 text-sm">
                   <div className="flex items-center justify-between">
                     <span>Open command menu</span>
-                    <kbd className="rounded-md border bg-muted px-2 py-1 text-xs">⌘ K</kbd>
+                    <kbd className="rounded-md border bg-muted px-2 py-1 text-xs">
+                      ⌘ K
+                    </kbd>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Search</span>
-                    <kbd className="rounded-md border bg-muted px-2 py-1 text-xs">/</kbd>
+                    <kbd className="rounded-md border bg-muted px-2 py-1 text-xs">
+                      /
+                    </kbd>
                   </div>
                 </div>
               </DemoCard>
@@ -768,11 +814,15 @@ function App() {
                   <TableBody>
                     <TableRow>
                       <TableCell>Alex Morgan</TableCell>
-                      <TableCell><Badge variant="secondary">Active</Badge></TableCell>
+                      <TableCell>
+                        <Badge variant="secondary">Active</Badge>
+                      </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Jamie Lee</TableCell>
-                      <TableCell><Badge variant="outline">Pending</Badge></TableCell>
+                      <TableCell>
+                        <Badge variant="outline">Pending</Badge>
+                      </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -787,21 +837,27 @@ function App() {
                 <div className="space-y-3">
                   <div className="flex justify-between text-sm">
                     <span>Uploading files</span>
-                    <span className="tabular-nums text-muted-foreground">{progress}%</span>
+                    <span className="text-muted-foreground tabular-nums">
+                      {progress}%
+                    </span>
                   </div>
                   <Progress value={progress} />
                   <div className="flex gap-2">
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => setProgress((value) => Math.max(0, value - 10))}
+                      onClick={() =>
+                        setProgress((value) => Math.max(0, value - 10))
+                      }
                     >
                       <ChevronLeft className="mr-1 size-4" />
                       Less
                     </Button>
                     <Button
                       size="sm"
-                      onClick={() => setProgress((value) => Math.min(100, value + 10))}
+                      onClick={() =>
+                        setProgress((value) => Math.min(100, value + 10))
+                      }
                     >
                       More
                       <ChevronRight className="ml-1 size-4" />
@@ -820,11 +876,13 @@ function App() {
                     <Alert>
                       <CheckCircle2 className="size-4" />
                       <AlertTitle>Saved</AlertTitle>
-                      <AlertDescription>Changes saved successfully.</AlertDescription>
+                      <AlertDescription>
+                        Changes saved successfully.
+                      </AlertDescription>
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute right-2 top-2 size-7"
+                        className="absolute top-2 right-2 size-7"
                         onClick={() => setNotificationVisible(false)}
                         aria-label="Dismiss notification"
                       >
@@ -858,8 +916,12 @@ function App() {
                     <Check className="size-4" />
                   </span>
                   <div>
-                    <p className="text-sm font-medium">All systems operational</p>
-                    <p className="text-xs text-muted-foreground">Last checked just now</p>
+                    <p className="text-sm font-medium">
+                      All systems operational
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Last checked just now
+                    </p>
                   </div>
                 </div>
               </DemoCard>
@@ -870,14 +932,16 @@ function App() {
         <section id="components" className="scroll-mt-20 space-y-5">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <h2 className="text-lg font-semibold tracking-tight">All components</h2>
+              <h2 className="text-lg font-semibold tracking-tight">
+                All components
+              </h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 {filteredComponents.length} of {components.length}
               </p>
             </div>
 
             <div className="relative w-full sm:max-w-xs">
-              <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
@@ -911,7 +975,7 @@ function App() {
                     event.preventDefault()
                     navigate(`/components/${component.id}`)
                   }}
-                  className="flex min-h-14 items-center justify-between gap-3 rounded-xl border bg-card px-4 py-3 transition-colors hover:border-primary/40 hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="flex min-h-14 items-center justify-between gap-3 rounded-xl border bg-card px-4 py-3 transition-colors hover:border-primary/40 hover:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
                 >
                   <span className="text-sm font-medium">{component.name}</span>
                   <div className="flex items-center gap-2">
