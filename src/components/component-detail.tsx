@@ -4,6 +4,7 @@ import {
   ArrowLeft,
   ArrowUpRight,
   Layers3,
+  Search,
 } from "lucide-react"
 
 import {
@@ -96,6 +97,7 @@ export type ComponentInfo = {
 
 type ComponentDetailProps = {
   component: ComponentInfo
+  components: ComponentInfo[]
   onNavigate: (path: string) => void
   basePath: string
 }
@@ -476,88 +478,161 @@ function ComponentPreview({ id }: { id: string }) {
 
 export default function ComponentDetail({
   component,
+  components,
   onNavigate,
   basePath,
 }: ComponentDetailProps) {
+  const [componentQuery, setComponentQuery] = React.useState("")
   const description =
     componentDescriptions[component.id] ??
     categoryDescriptions[component.category] ??
     "A reusable interface building block from the Viora component library."
+
+  const filteredComponents = components.filter((item) =>
+    item.name.toLowerCase().includes(componentQuery.trim().toLowerCase())
+  )
+
+  const groupedComponents = filteredComponents.reduce<
+    Record<string, ComponentInfo[]>
+  >((groups, item) => {
+    groups[item.category] ??= []
+    groups[item.category].push(item)
+    return groups
+  }, {})
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader basePath={basePath} />
 
-      <main className="mx-auto max-w-5xl space-y-10 px-5 py-9 sm:py-12">
-        <div className="space-y-5">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink
-                  href="/"
-                  onClick={(event) => {
-                    event.preventDefault()
-                    onNavigate("/")
-                  }}
-                >
-                  Components
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>{component.name}</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant="secondary">{component.category}</Badge>
-              <span className="text-xs text-muted-foreground">Viora UI</span>
-            </div>
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              {component.name}
-            </h1>
-            <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
-              {description}
-            </p>
-          </div>
-        </div>
-
-        <section className="space-y-4">
+      <main className="mx-auto grid max-w-6xl gap-8 px-5 py-7 sm:py-9 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
+        <aside className="min-w-0 space-y-4 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:self-start lg:overflow-y-auto lg:border-r lg:pr-5">
           <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-semibold tracking-tight">
-                Live preview
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                Try the component and explore its behaviour.
+            <h2 className="text-sm font-semibold tracking-tight">Components</h2>
+            <Badge variant="secondary">{components.length}</Badge>
+          </div>
+
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={componentQuery}
+              onChange={(event) => setComponentQuery(event.target.value)}
+              placeholder="Search components"
+              aria-label="Search components"
+              className="h-9 pl-9"
+            />
+          </div>
+
+          <nav aria-label="Component navigation" className="space-y-5">
+            {Object.entries(groupedComponents)
+              .sort(([first], [second]) => first.localeCompare(second))
+              .map(([category, items]) => (
+                <div key={category} className="space-y-1.5">
+                  <p className="px-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    {category}
+                  </p>
+                  <div className="space-y-0.5">
+                    {items.map((item) => (
+                      <a
+                        key={item.id}
+                        href={`${basePath}/components/${item.id}`}
+                        onClick={(event) => {
+                          event.preventDefault()
+                          onNavigate(`/components/${item.id}`)
+                        }}
+                        aria-current={item.id === component.id ? "page" : undefined}
+                        className={`flex min-h-8 items-center justify-between rounded-md px-2.5 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                          item.id === component.id
+                            ? "bg-secondary font-medium text-secondary-foreground"
+                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                        }`}
+                      >
+                        <span>{item.name}</span>
+                        {item.id === component.id ? (
+                          <span className="size-1.5 rounded-full bg-primary" />
+                        ) : null}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            {filteredComponents.length === 0 ? (
+              <p className="px-2 py-4 text-sm text-muted-foreground">
+                No components found.
+              </p>
+            ) : null}
+          </nav>
+        </aside>
+
+        <div className="min-w-0 space-y-10">
+          <div className="space-y-5">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink
+                    href={`${basePath}/components`}
+                    onClick={(event) => {
+                      event.preventDefault()
+                      onNavigate("/components")
+                    }}
+                  >
+                    Components
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{component.name}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+
+            <div className="space-y-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <Badge variant="secondary">{component.category}</Badge>
+                <span className="text-xs text-muted-foreground">Viora UI</span>
+              </div>
+              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                {component.name}
+              </h1>
+              <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
+                {description}
               </p>
             </div>
-            <Badge variant="outline">Interactive</Badge>
           </div>
-          <div className="flex min-h-64 items-center justify-center rounded-2xl border bg-card p-6 sm:p-10">
-            <div className="flex w-full items-center justify-center">
-              <ComponentPreview id={component.id} />
+
+          <section className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-semibold tracking-tight">
+                  Live preview
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  Try the component and explore its behaviour.
+                </p>
+              </div>
+              <Badge variant="outline">Interactive</Badge>
             </div>
+            <div className="flex min-h-64 items-center justify-center rounded-2xl border bg-card p-6 sm:p-10">
+              <div className="flex w-full items-center justify-center">
+                <ComponentPreview id={component.id} />
+              </div>
+            </div>
+          </section>
+
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t pt-6">
+            <Button variant="outline" onClick={() => onNavigate("/")}>
+              <ArrowLeft className="mr-2 size-4" />
+              Back to home
+            </Button>
+            <a
+              href="https://github.com/viora-studio/template-preview/tree/master/src/components/ui"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Browse component source
+              <ArrowUpRight className="size-3.5" />
+            </a>
           </div>
-        </section>
-
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t pt-6">
-          <Button variant="outline" onClick={() => onNavigate("/")}>
-            <ArrowLeft className="mr-2 size-4" />
-            Back to all components
-          </Button>
-          <a
-            href="https://github.com/viora-studio/template-preview/tree/master/src/components/ui"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Browse component source
-            <ArrowUpRight className="size-3.5" />
-          </a>
         </div>
-
       </main>
       <div className="mx-auto max-w-6xl px-5 pb-10">
         <SiteFooter />
