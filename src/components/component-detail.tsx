@@ -588,6 +588,12 @@ function ComponentPreview({ id }: { id: string }) {
           </BreadcrumbList>
         </Breadcrumb>
       )
+    case "calendar":
+      return (
+        <div className="rounded-xl border p-3">
+          <Calendar mode="single" />
+        </div>
+      )
     case "button":
       return (
         <div className="flex flex-wrap gap-2">
