@@ -1,7 +1,6 @@
 import * as React from "react"
 
 import {
-  Activity,
   ArrowUpRight,
   Bell,
   Check,
@@ -18,9 +17,7 @@ import {
   Moon,
   MoreHorizontal,
   Search,
-  SlidersHorizontal,
   Sun,
-  Users,
   X,
 } from "lucide-react"
 
@@ -50,7 +47,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { ButtonGroup } from "@/components/ui/button-group"
 import { Calendar } from "@/components/ui/calendar"
 import {
