@@ -1,7 +1,6 @@
 import * as React from "react"
 
 import {
-  ArrowUpRight,
   Bell,
   Check,
   CheckCircle2,
@@ -13,7 +12,6 @@ import {
   Info,
   Loader2,
   MoreHorizontal,
-  Search,
   X,
 } from "lucide-react"
 
@@ -159,18 +157,6 @@ const components = componentDefinitions.map(([name, category]) => ({
   category,
 }))
 
-const categories = [
-  "All",
-  "Actions",
-  "Data display",
-  "Feedback",
-  "Forms",
-  "Layout",
-  "Messaging",
-  "Navigation",
-  "Overlays",
-  "Utilities",
-]
 
 function DemoCard({
   title,
@@ -192,8 +178,6 @@ function DemoCard({
 }
 
 function App() {
-  const [query, setQuery] = React.useState("")
-  const [activeCategory, setActiveCategory] = React.useState("All")
   const [activeTab, setActiveTab] = React.useState("basics")
   const [pathname, setPathname] = React.useState(() => window.location.pathname)
   const basePath = import.meta.env.BASE_URL.replace(/\/$/, "")
@@ -211,7 +195,7 @@ function App() {
 
   React.useEffect(() => {
     if (appPath === "/components" || appPath === "/components/") {
-      const destination = `${basePath}/`
+      const destination = `${basePath}/components/${components[0].id}`
       window.history.replaceState({}, "", destination)
       setPathname(destination)
     }
@@ -230,22 +214,13 @@ function App() {
   const [email, setEmail] = React.useState("alex@example.com")
   const [message, setMessage] = React.useState("A short message goes here.")
 
-  const filteredComponents = React.useMemo(() => {
-    const searchTerm = query.trim().toLowerCase()
-
-    return components.filter((component) => {
-      const matchesCategory =
-        activeCategory === "All" || component.category === activeCategory
-      const matchesSearch = component.name.toLowerCase().includes(searchTerm)
-
-      return matchesCategory && matchesSearch
-    })
-  }, [activeCategory, query])
 
   const componentRoute = appPath.match(/^\/components\/([^/]+)\/?$/)
   const activeComponent = componentRoute
     ? components.find((component) => component.id === componentRoute[1])
-    : undefined
+    : appPath === "/components" || appPath === "/components/"
+      ? components[0]
+      : undefined
 
   function navigate(path: string) {
     const destination = `${basePath}${path}`
@@ -254,13 +229,8 @@ function App() {
     window.scrollTo({ top: 0, behavior: "auto" })
   }
 
-  function resetFilters() {
-    setQuery("")
-    setActiveCategory("All")
-  }
-
   if (activeComponent) {
-    return <ComponentDetail component={activeComponent} onNavigate={navigate} basePath={basePath} />
+    return <ComponentDetail component={activeComponent} components={components} onNavigate={navigate} basePath={basePath} />
   }
 
   if (appPath === "/components" || appPath === "/components/") {
@@ -840,75 +810,6 @@ function App() {
               </DemoCard>
             </TabsContent>
           </Tabs>
-        </section>
-
-        <section id="components" className="scroll-mt-20 space-y-5">
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <h2 className="text-lg font-semibold tracking-tight">
-                All components
-              </h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {filteredComponents.length} of {components.length}
-              </p>
-            </div>
-
-            <div className="relative w-full sm:max-w-xs">
-              <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search components"
-                className="pl-9"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <Button
-                key={category}
-                size="sm"
-                variant={activeCategory === category ? "secondary" : "ghost"}
-                className="h-8 rounded-full px-3"
-                onClick={() => setActiveCategory(category)}
-              >
-                {category}
-              </Button>
-            ))}
-          </div>
-
-          {filteredComponents.length > 0 ? (
-            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredComponents.map((component) => (
-                <a
-                  key={component.id}
-                  href={`${basePath}/components/${component.id}`}
-                  onClick={(event) => {
-                    event.preventDefault()
-                    navigate(`/components/${component.id}`)
-                  }}
-                  className="flex min-h-14 items-center justify-between gap-3 rounded-xl border bg-card px-4 py-3 transition-colors hover:border-primary/40 hover:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-                >
-                  <span className="text-sm font-medium">{component.name}</span>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline" className="shrink-0 font-normal">
-                      {component.category}
-                    </Badge>
-                    <ArrowUpRight className="size-3.5 text-muted-foreground" />
-                  </div>
-                </a>
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-xl border border-dashed py-12 text-center">
-              <Search className="mx-auto mb-3 size-5 text-muted-foreground" />
-              <p className="text-sm font-medium">No components found</p>
-              <Button variant="link" size="sm" onClick={resetFilters}>
-                Clear filters
-              </Button>
-            </div>
-          )}
         </section>
 
       </main>
