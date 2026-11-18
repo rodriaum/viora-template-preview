@@ -27,17 +27,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import {
   Breadcrumb,
@@ -50,12 +42,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { ButtonGroup } from "@/components/ui/button-group"
 import { Calendar } from "@/components/ui/calendar"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
   Collapsible,
@@ -70,10 +57,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Progress } from "@/components/ui/progress"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/components/ui/radio-group"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {
   Select,
   SelectContent,
@@ -92,12 +76,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
 import {
   Tooltip,
@@ -175,7 +154,10 @@ const componentDefinitions = [
 ] as const
 
 const components = componentDefinitions.map(([name, category]) => ({
-  id: name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+  id: name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, ""),
   name,
   category,
 }))
@@ -204,7 +186,7 @@ function DemoCard({
 }) {
   return (
     <Card className={className}>
-      <CardHeader className="px-4 pb-2 pt-4">
+      <CardHeader className="px-4 pt-4 pb-2">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
       </CardHeader>
       <CardContent className="px-4 pb-4">{children}</CardContent>
@@ -216,7 +198,8 @@ function ThemeToggle() {
   const { theme, setTheme } = useTheme()
   const isDark =
     theme === "dark" ||
-    (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    (theme === "system" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
 
   return (
     <Button
@@ -264,7 +247,7 @@ function App() {
   const [volume, setVolume] = React.useState([68])
   const [progress, setProgress] = React.useState(72)
   const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(
-    new Date(),
+    new Date()
   )
   const [detailsOpen, setDetailsOpen] = React.useState(false)
   const [notificationVisible, setNotificationVisible] = React.useState(false)
@@ -437,7 +420,9 @@ function App() {
                   <Button variant="outline">Outline</Button>
                   <Button variant="ghost">Ghost</Button>
                   <Button variant="destructive">Destructive</Button>
-                  <Button variant="secondary-destructive">Secondary Destructive</Button>
+                  <Button variant="secondary-destructive">
+                    Secondary Destructive
+                  </Button>
                   <Button variant="link">Link</Button>
                 </div>
                 <Separator className="my-4" />
@@ -999,12 +984,18 @@ function App() {
         </section>
 
         <footer className="flex flex-col justify-between gap-3 border-t pt-5 text-xs text-muted-foreground sm:flex-row">
-          <span>Viora Studio · UI Components</span>
+          <span>
+            © {new Date().getFullYear()} Viora Studio · All
+            rights reserved.
+          </span>
+
           <a
             href="https://github.com/viora-studio/template-preview"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
           >
-            View source
+            View Source
             <ArrowUpRight className="size-3" />
           </a>
         </footer>

@@ -865,10 +865,9 @@ function ComponentPreview({ id }: { id: string }) {
             <div className="space-y-1">
               <p className="text-sm font-medium">{id.split("-").join(" ")} example</p>
               <p className="max-w-xs text-xs text-muted-foreground">
-                Use the implementation example below as a starting point for this component.
+                There is no implementation yet for the selected component.
               </p>
             </div>
-            <Badge variant="outline">Component preview</Badge>
           </CardContent>
         </Card>
       )
@@ -923,7 +922,7 @@ export default function ComponentDetail({
                 window.open(
                   "https://github.com/viora-studio/template-preview",
                   "_blank",
-                  "noopener,noreferrer",
+                  "noopener,noreferrer"
                 )
               }
             >
@@ -974,7 +973,9 @@ export default function ComponentDetail({
         <section className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-semibold tracking-tight">Live preview</h2>
+              <h2 className="text-lg font-semibold tracking-tight">
+                Live preview
+              </h2>
               <p className="text-sm text-muted-foreground">
                 Try the component and explore its behaviour.
               </p>
@@ -991,9 +992,12 @@ export default function ComponentDetail({
         <section className="space-y-4">
           <div className="space-y-4">
             <div>
-              <h2 className="text-lg font-semibold tracking-tight">Implementation</h2>
+              <h2 className="text-lg font-semibold tracking-tight">
+                Implementation
+              </h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                Import the component and compose it with your application content.
+                Import the component and compose it with your application
+                content.
               </p>
             </div>
             <div className="overflow-hidden rounded-2xl border bg-card">
@@ -1003,7 +1007,11 @@ export default function ComponentDetail({
                   <span className="font-medium">example.tsx</span>
                 </div>
                 <Button variant="outline" size="sm" onClick={copySnippet}>
-                  {copied ? <Check className="mr-2 size-4" /> : <Copy className="mr-2 size-4" />}
+                  {copied ? (
+                    <Check className="mr-2 size-4" />
+                  ) : (
+                    <Copy className="mr-2 size-4" />
+                  )}
                   {copied ? "Copied" : "Copy code"}
                 </Button>
               </div>
@@ -1012,7 +1020,6 @@ export default function ComponentDetail({
               </pre>
             </div>
           </div>
-
         </section>
 
         <div className="flex flex-wrap items-center justify-between gap-3 border-t pt-6">
@@ -1032,7 +1039,8 @@ export default function ComponentDetail({
         </div>
 
         <footer className="border-t pt-5 text-xs text-muted-foreground">
-          Viora Studio · UI Components
+          © {new Date().getFullYear()} Viora Studio · All rights
+          reserved.
         </footer>
       </main>
     </div>
