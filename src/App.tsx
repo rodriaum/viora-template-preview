@@ -193,14 +193,6 @@ function App() {
     return () => window.removeEventListener("popstate", handlePopState)
   }, [])
 
-  React.useEffect(() => {
-    if (appPath === "/components" || appPath === "/components/") {
-      const destination = `${basePath}/components/${components[0].id}`
-      window.history.replaceState({}, "", destination)
-      setPathname(destination)
-    }
-  }, [appPath, basePath])
-
   const [termsAccepted, setTermsAccepted] = React.useState(true)
   const [marketingEnabled, setMarketingEnabled] = React.useState(false)
   const [selectedPlan, setSelectedPlan] = React.useState("pro")
