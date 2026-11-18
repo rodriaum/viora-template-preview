@@ -5,7 +5,7 @@
     <link
       rel="icon"
       type="image/svg+xml"
-      href="/icon.svg"
+      href="%BASE_URL%icon.svg"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ffffff" />
@@ -17,6 +17,17 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      try {
+        const redirect = sessionStorage.getItem("viora-spa-redirect")
+        if (redirect) {
+          sessionStorage.removeItem("viora-spa-redirect")
+          window.history.replaceState(null, "", redirect)
+        }
+      } catch {
+        // Ignore unavailable session storage.
+      }
+    </script>
+    <script type="module" src="%BASE_URL%src/main.tsx"></script>
   </body>
 </html>
