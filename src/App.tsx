@@ -157,6 +157,8 @@ const components = componentDefinitions.map(([name, category]) => ({
   category,
 }))
 
+const categoryCount = new Set(components.map(({ category }) => category)).size
+
 
 function DemoCard({
   title,
@@ -262,6 +264,9 @@ function App() {
             <p className="text-sm text-muted-foreground">
               Interactive component library and examples.
             </p>
+            <p className="max-w-xl text-xs leading-5 text-muted-foreground">
+              Select <span className="font-medium text-foreground">Components</span> in the header to browse the full library by category and open each component&apos;s preview.
+            </p>
           </div>
 
           <div className="flex items-center gap-5 text-sm">
@@ -274,7 +279,7 @@ function App() {
             <Separator orientation="vertical" className="h-9" />
             <div>
               <p className="text-xl font-semibold tabular-nums">
-                {categories.length - 1}
+                {categoryCount}
               </p>
               <p className="text-xs text-muted-foreground">Categories</p>
             </div>
