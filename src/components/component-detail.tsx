@@ -36,6 +36,8 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
+import SiteFooter from "@/components/site-footer"
+import SiteHeader from "@/components/site-header"
 import { Calendar } from "@/components/ui/calendar"
 import {
   Card,
@@ -98,6 +100,7 @@ export type ComponentInfo = {
 type ComponentDetailProps = {
   component: ComponentInfo
   onNavigate: (path: string) => void
+  basePath: string
 }
 
 const categoryDescriptions: Record<string, string> = {
@@ -877,6 +880,7 @@ function ComponentPreview({ id }: { id: string }) {
 export default function ComponentDetail({
   component,
   onNavigate,
+  basePath,
 }: ComponentDetailProps) {
   const [copied, setCopied] = React.useState(false)
   const snippet = getSnippet(component)
@@ -897,42 +901,7 @@ export default function ComponentDetail({
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b bg-background/85 backdrop-blur-xl">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5">
-          <button
-            type="button"
-            onClick={() => onNavigate("/")}
-            className="flex items-center gap-2 font-semibold tracking-tight"
-          >
-            <span className="grid size-7 place-items-center rounded-lg bg-primary text-primary-foreground">
-              <Layers3 className="size-4" />
-            </span>
-            <span>Viora</span>
-            <span className="font-normal text-muted-foreground">/ UI</span>
-          </button>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" onClick={() => onNavigate("/")}>
-              <ArrowLeft className="mr-2 size-4" />
-              All components
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() =>
-                window.open(
-                  "https://github.com/viora-studio/template-preview",
-                  "_blank",
-                  "noopener,noreferrer"
-                )
-              }
-            >
-              <Code2 className="mr-2 size-4" />
-              Source
-              <ArrowUpRight className="ml-1 size-3.5" />
-            </Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader basePath={basePath} />
 
       <main className="mx-auto max-w-5xl space-y-10 px-5 py-9 sm:py-12">
         <div className="space-y-5">
@@ -1038,10 +1007,7 @@ export default function ComponentDetail({
           </a>
         </div>
 
-        <footer className="border-t pt-5 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Viora Studio · All rights
-          reserved.
-        </footer>
+        <SiteFooter />
       </main>
     </div>
   )
