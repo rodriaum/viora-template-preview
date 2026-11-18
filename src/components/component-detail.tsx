@@ -36,6 +36,21 @@ import {
 import { Button } from "@/components/ui/button"
 import SiteFooter from "@/components/site-footer"
 import SiteHeader from "@/components/site-header"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInput,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar"
 import { Calendar } from "@/components/ui/calendar"
 import {
   Card,
@@ -503,137 +518,141 @@ export default function ComponentDetail({
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader basePath={basePath} onNavigate={onNavigate} />
 
-      <main className="mx-auto grid max-w-6xl gap-8 px-5 py-7 sm:py-9 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
-        <aside className="max-h-72 min-w-0 space-y-4 overflow-y-auto rounded-xl border p-3 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:self-start lg:rounded-none lg:border-0 lg:border-r lg:p-0 lg:pr-5">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold tracking-tight">Components</h2>
-            <Badge variant="secondary">{components.length}</Badge>
-          </div>
+      <SidebarProvider className="min-h-[calc(100svh-3.5rem)] items-stretch">
+        <Sidebar collapsible="icon" className="top-14 h-[calc(100svh-3.5rem)]">
+          <SidebarHeader>
+            <div className="flex items-center justify-between px-2">
+              <SidebarGroupLabel className="px-0 text-sm font-semibold text-sidebar-foreground">
+                Components
+              </SidebarGroupLabel>
+              <Badge variant="secondary">{components.length}</Badge>
+            </div>
+            <div className="relative">
+              <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+              <SidebarInput
+                value={componentQuery}
+                onChange={(event) => setComponentQuery(event.target.value)}
+                placeholder="Search components"
+                aria-label="Search components"
+                className="pl-9"
+              />
+            </div>
+          </SidebarHeader>
 
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              value={componentQuery}
-              onChange={(event) => setComponentQuery(event.target.value)}
-              placeholder="Search components"
-              aria-label="Search components"
-              className="h-9 pl-9"
-            />
-          </div>
-
-          <nav aria-label="Component navigation" className="space-y-5">
+          <SidebarContent>
             {Object.entries(groupedComponents)
               .sort(([first], [second]) => first.localeCompare(second))
               .map(([category, items]) => (
-                <div key={category} className="space-y-1.5">
-                  <p className="px-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                    {category}
-                  </p>
-                  <div className="space-y-0.5">
-                    {items.map((item) => (
-                      <a
-                        key={item.id}
-                        href={`${basePath}/components/${item.id}`}
-                        onClick={(event) => {
-                          event.preventDefault()
-                          onNavigate(`/components/${item.id}`)
-                        }}
-                        aria-current={item.id === component.id ? "page" : undefined}
-                        className={`flex min-h-8 items-center justify-between rounded-md px-2.5 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                          item.id === component.id
-                            ? "bg-secondary font-medium text-secondary-foreground"
-                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                        }`}
-                      >
-                        <span>{item.name}</span>
-                        {item.id === component.id ? (
-                          <span className="size-1.5 rounded-full bg-primary" />
-                        ) : null}
-                      </a>
-                    ))}
-                  </div>
-                </div>
+                <SidebarGroup key={category}>
+                  <SidebarGroupLabel>{category}</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      {items.map((item) => (
+                        <SidebarMenuItem key={item.id}>
+                          <SidebarMenuButton
+                            render={
+                              <a href={`${basePath}/components/${item.id}`} />
+                            }
+                            isActive={item.id === component.id}
+                            tooltip={item.name}
+                            onClick={(event) => {
+                              event.preventDefault()
+                              onNavigate(`/components/${item.id}`)
+                            }}
+                          >
+                            <span>{item.name}</span>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
               ))}
             {filteredComponents.length === 0 ? (
-              <p className="px-2 py-4 text-sm text-muted-foreground">
+              <p className="px-4 py-4 text-sm text-muted-foreground">
                 No components found.
               </p>
             ) : null}
-          </nav>
-        </aside>
+          </SidebarContent>
+        </Sidebar>
 
-        <div className="min-w-0 space-y-10">
-          <div className="space-y-5">
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink
-                    href={`${basePath}/components`}
-                    onClick={(event) => {
-                      event.preventDefault()
-                      onNavigate("/components")
-                    }}
-                  >
-                    Components
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>{component.name}</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+        <SidebarInset className="min-w-0 bg-background">
+          <main className="mx-auto w-full max-w-5xl space-y-10 px-5 py-9 sm:py-12">
+            <div className="flex items-start gap-3">
+              <SidebarTrigger className="mt-1 shrink-0" />
+              <div className="min-w-0 flex-1 space-y-5">
+                <Breadcrumb>
+                  <BreadcrumbList>
+                    <BreadcrumbItem>
+                      <BreadcrumbLink
+                        href={`${basePath}/components`}
+                        onClick={(event) => {
+                          event.preventDefault()
+                          onNavigate("/components")
+                        }}
+                      >
+                        Components
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage>{component.name}</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb>
 
-            <div className="space-y-3">
-              <div className="flex flex-wrap items-center gap-2">
-                <Badge variant="secondary">{component.category}</Badge>
-                <span className="text-xs text-muted-foreground">Viora UI</span>
-              </div>
-              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-                {component.name}
-              </h1>
-              <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
-                {description}
-              </p>
-            </div>
-          </div>
-
-          <section className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-lg font-semibold tracking-tight">
-                  Live preview
-                </h2>
-                <p className="text-sm text-muted-foreground">
-                  Try the component and explore its behaviour.
-                </p>
-              </div>
-              <Badge variant="outline">Interactive</Badge>
-            </div>
-            <div className="flex min-h-64 items-center justify-center rounded-2xl border bg-card p-6 sm:p-10">
-              <div className="flex w-full items-center justify-center">
-                <ComponentPreview id={component.id} />
+                <div className="space-y-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge variant="secondary">{component.category}</Badge>
+                    <span className="text-xs text-muted-foreground">Viora UI</span>
+                  </div>
+                  <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                    {component.name}
+                  </h1>
+                  <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
+                    {description}
+                  </p>
+                </div>
               </div>
             </div>
-          </section>
 
-          <div className="flex flex-wrap items-center justify-between gap-3 border-t pt-6">
-            <Button variant="outline" onClick={() => onNavigate("/")}>
-              <ArrowLeft className="mr-2 size-4" />
-              Back to home
-            </Button>
-            <a
-              href="https://github.com/viora-studio/template-preview/tree/master/src/components/ui"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Browse component source
-              <ArrowUpRight className="size-3.5" />
-            </a>
-          </div>
-        </div>
-      </main>
+            <section className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-lg font-semibold tracking-tight">
+                    Live preview
+                  </h2>
+                  <p className="text-sm text-muted-foreground">
+                    Try the component and explore its behaviour.
+                  </p>
+                </div>
+                <Badge variant="outline">Interactive</Badge>
+              </div>
+              <div className="flex min-h-64 items-center justify-center rounded-2xl border bg-card p-6 sm:p-10">
+                <div className="flex w-full items-center justify-center">
+                  <ComponentPreview id={component.id} />
+                </div>
+              </div>
+            </section>
+
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t pt-6">
+              <Button variant="outline" onClick={() => onNavigate("/")}>
+                <ArrowLeft className="mr-2 size-4" />
+                Back to home
+              </Button>
+              <a
+                href="https://github.com/viora-studio/template-preview/tree/master/src/components/ui"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Browse component source
+                <ArrowUpRight className="size-3.5" />
+              </a>
+            </div>
+          </main>
+        </SidebarInset>
+      </SidebarProvider>
       <div className="mx-auto max-w-6xl px-5 pb-10">
         <SiteFooter />
       </div>
