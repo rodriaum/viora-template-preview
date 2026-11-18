@@ -501,7 +501,7 @@ export default function ComponentDetail({
   }, {})
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader basePath={basePath} />
+      <SiteHeader basePath={basePath} onNavigate={onNavigate} />
 
       <main className="mx-auto grid max-w-6xl gap-8 px-5 py-7 sm:py-9 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
         <aside className="min-w-0 space-y-4 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:self-start lg:overflow-y-auto lg:border-r lg:pr-5">
