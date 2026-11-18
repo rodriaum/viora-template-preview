@@ -390,12 +390,12 @@ function App() {
                 <Separator className="my-4" />
                 <div className="flex items-center gap-3">
                   <Avatar>
-                    <AvatarImage src="https://i.pravatar.cc/80?img=12" />
-                    <AvatarFallback>AM</AvatarFallback>
+                    <AvatarImage src="https://avatars.githubusercontent.com/u/119365213" />
+                    <AvatarFallback>RF</AvatarFallback>
                   </Avatar>
                   <div className="min-w-0">
-                    <p className="text-sm font-medium">Alex Morgan</p>
-                    <p className="text-xs text-muted-foreground">Product designer</p>
+                    <p className="text-sm font-medium">Rodrigo Ferreira</p>
+                    <p className="text-xs text-muted-foreground">Software Developer</p>
                   </div>
                   <Badge variant="secondary" className="ml-auto">Online</Badge>
                 </div>
