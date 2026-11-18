@@ -6,6 +6,7 @@ import { useTheme } from "@/components/theme-provider"
 type SiteHeaderProps = {
   isHome?: boolean
   basePath?: string
+  onNavigate?: (path: string) => void
 }
 
 function ThemeToggle() {
@@ -32,6 +33,7 @@ function ThemeToggle() {
 export default function SiteHeader({
   isHome = false,
   basePath = "",
+  onNavigate,
 }: SiteHeaderProps) {
   const homeHref = basePath ? `${basePath}/` : "/"
 
@@ -57,7 +59,13 @@ export default function SiteHeader({
             Playground
           </a>
           <a
-            href={isHome ? "#components" : `${homeHref}#components`}
+            href={`${homeHref}components`}
+            onClick={(event) => {
+              if (onNavigate) {
+                event.preventDefault()
+                onNavigate("/components")
+              }
+            }}
             className="transition-colors hover:text-foreground"
           >
             Components
