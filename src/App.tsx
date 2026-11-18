@@ -253,7 +253,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader isHome basePath={basePath} />
+      <SiteHeader isHome basePath={basePath} onNavigate={navigate} />
 
       <main className="mx-auto max-w-6xl space-y-12 px-5 py-10 sm:py-14">
         <section className="flex flex-col justify-between gap-4 border-b pb-7 sm:flex-row sm:items-end">
