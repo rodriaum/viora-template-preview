@@ -961,9 +961,6 @@ export default function ComponentDetail({
         <section className="space-y-4">
           <div className="space-y-4">
             <div>
-              <h2 className="text-lg font-semibold tracking-tight">
-                Implementation
-              </h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 Import the component and compose it with your application
                 content.
