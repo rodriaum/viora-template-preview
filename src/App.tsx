@@ -1,6 +1,7 @@
 import * as React from "react"
 
 import { Button } from "@/components/ui/button"
+import { Spinner } from "@/components/ui/spinner"
 import { Separator } from "@/components/ui/separator"
 import SiteFooter from "@/components/site-footer"
 import SiteHeader from "@/components/site-header"
@@ -88,8 +89,8 @@ const categoryCount = new Set(components.map(({ category }) => category)).size
 
 function PageLoading() {
   return (
-    <div className="grid min-h-[60vh] place-items-center bg-background text-sm text-muted-foreground">
-      Loading component...
+    <div className="grid min-h-[60vh] place-items-center bg-background">
+      <Spinner className="size-8 text-muted-foreground" />
     </div>
   )
 }
