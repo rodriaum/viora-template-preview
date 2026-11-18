@@ -504,7 +504,7 @@ export default function ComponentDetail({
       <SiteHeader basePath={basePath} onNavigate={onNavigate} />
 
       <main className="mx-auto grid max-w-6xl gap-8 px-5 py-7 sm:py-9 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
-        <aside className="min-w-0 space-y-4 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:self-start lg:overflow-y-auto lg:border-r lg:pr-5">
+        <aside className="max-h-72 min-w-0 space-y-4 overflow-y-auto rounded-xl border p-3 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:self-start lg:rounded-none lg:border-0 lg:border-r lg:p-0 lg:pr-5">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold tracking-tight">Components</h2>
             <Badge variant="secondary">{components.length}</Badge>
