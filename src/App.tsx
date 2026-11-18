@@ -223,8 +223,6 @@ function App() {
       <main className="mx-auto max-w-6xl space-y-12 px-5 py-10 sm:py-14">
         <section className="flex flex-col justify-between gap-4 border-b pb-7 sm:flex-row sm:items-end">
           <div className="space-y-2">
-            <div className="flex items-center gap-2">
-            </div>
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
               UI Components
             </h1>
