@@ -99,7 +99,8 @@ function DemoCard({
 }
 
 export default function Playground() {
-const [termsAccepted, setTermsAccepted] = React.useState(true)
+  const [activeTab, setActiveTab] = React.useState("basics")
+  const [termsAccepted, setTermsAccepted] = React.useState(true)
   const [marketingEnabled, setMarketingEnabled] = React.useState(false)
   const [selectedPlan, setSelectedPlan] = React.useState("pro")
   const [volume, setVolume] = React.useState([68])
