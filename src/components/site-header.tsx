@@ -60,7 +60,10 @@ export default function SiteHeader({
                 onNavigate("/")
               }
             }}
-            className="transition-colors hover:text-foreground"
+            aria-current={isHome ? "page" : undefined}
+            className={`transition-colors hover:text-foreground ${
+              isHome ? "text-foreground" : ""
+            }`}
           >
             Home
           </a>
@@ -72,7 +75,10 @@ export default function SiteHeader({
                 onNavigate("/components")
               }
             }}
-            className="transition-colors hover:text-foreground"
+            aria-current={!isHome ? "page" : undefined}
+            className={`transition-colors hover:text-foreground ${
+              !isHome ? "text-foreground" : ""
+            }`}
           >
             Components
           </a>
