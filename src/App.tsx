@@ -106,6 +106,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { useTheme } from "@/components/theme-provider"
+import ComponentDetail from "@/components/component-detail"
 
 const componentDefinitions = [
   ["Accordion", "Layout"],
@@ -174,6 +175,7 @@ const componentDefinitions = [
 ] as const
 
 const components = componentDefinitions.map(([name, category]) => ({
+  id: name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
   name,
   category,
 }))
@@ -234,6 +236,27 @@ function App() {
   const [query, setQuery] = React.useState("")
   const [activeCategory, setActiveCategory] = React.useState("All")
   const [activeTab, setActiveTab] = React.useState("basics")
+  const [pathname, setPathname] = React.useState(() => window.location.pathname)
+  const basePath = import.meta.env.BASE_URL.replace(/\/$/, "")
+  const appPath =
+    basePath && pathname.startsWith(basePath)
+      ? pathname.slice(basePath.length) || "/"
+      : pathname
+
+  React.useEffect(() => {
+    const handlePopState = () => setPathname(window.location.pathname)
+    window.addEventListener("popstate", handlePopState)
+
+    return () => window.removeEventListener("popstate", handlePopState)
+  }, [])
+
+  React.useEffect(() => {
+    if (appPath === "/components" || appPath === "/components/") {
+      const destination = `${basePath}/`
+      window.history.replaceState({}, "", destination)
+      setPathname(destination)
+    }
+  }, [appPath, basePath])
 
   const [termsAccepted, setTermsAccepted] = React.useState(true)
   const [marketingEnabled, setMarketingEnabled] = React.useState(false)
@@ -260,9 +283,43 @@ function App() {
     })
   }, [activeCategory, query])
 
+  const componentRoute = appPath.match(/^\/components\/([^/]+)\/?$/)
+  const activeComponent = componentRoute
+    ? components.find((component) => component.id === componentRoute[1])
+    : undefined
+
+  function navigate(path: string) {
+    const destination = `${basePath}${path}`
+    window.history.pushState({}, "", destination)
+    setPathname(destination)
+    window.scrollTo({ top: 0, behavior: "auto" })
+  }
+
   function resetFilters() {
     setQuery("")
     setActiveCategory("All")
+  }
+
+  if (activeComponent) {
+    return <ComponentDetail component={activeComponent} onNavigate={navigate} />
+  }
+
+  if (appPath === "/components" || appPath === "/components/") {
+    return null
+  }
+
+  if (appPath !== "/") {
+    return (
+      <div className="grid min-h-screen place-items-center bg-background px-5 text-center text-foreground">
+        <div className="space-y-4">
+          <h1 className="text-2xl font-semibold">Component not found</h1>
+          <p className="text-sm text-muted-foreground">
+            This component does not exist in the Viora UI catalogue.
+          </p>
+          <Button onClick={() => navigate("/")}>Back to components</Button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -847,15 +904,23 @@ function App() {
           {filteredComponents.length > 0 ? (
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {filteredComponents.map((component) => (
-                <div
-                  key={component.name}
-                  className="flex min-h-14 items-center justify-between gap-3 rounded-xl border bg-card px-4 py-3 transition-colors hover:border-primary/40"
+                <a
+                  key={component.id}
+                  href={`${basePath}/components/${component.id}`}
+                  onClick={(event) => {
+                    event.preventDefault()
+                    navigate(`/components/${component.id}`)
+                  }}
+                  className="flex min-h-14 items-center justify-between gap-3 rounded-xl border bg-card px-4 py-3 transition-colors hover:border-primary/40 hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <span className="text-sm font-medium">{component.name}</span>
-                  <Badge variant="outline" className="shrink-0 font-normal">
-                    {component.category}
-                  </Badge>
-                </div>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="shrink-0 font-normal">
+                      {component.category}
+                    </Badge>
+                    <ArrowUpRight className="size-3.5 text-muted-foreground" />
+                  </div>
+                </a>
               ))}
             </div>
           ) : (
