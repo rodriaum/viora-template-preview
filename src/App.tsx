@@ -96,16 +96,15 @@ function PageLoading() {
 
 function DeferredPlayground() {
   const sectionRef = React.useRef<HTMLElement | null>(null)
-  const [shouldLoad, setShouldLoad] = React.useState(false)
+  const [shouldLoad, setShouldLoad] = React.useState(
+    () => typeof IntersectionObserver === "undefined"
+  )
 
   React.useEffect(() => {
+    if (shouldLoad) return
+
     const section = sectionRef.current
     if (!section) return
-
-    if (!("IntersectionObserver" in window)) {
-      setShouldLoad(true)
-      return
-    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -119,7 +118,7 @@ function DeferredPlayground() {
 
     observer.observe(section)
     return () => observer.disconnect()
-  }, [])
+  }, [shouldLoad])
 
   return (
     <section
