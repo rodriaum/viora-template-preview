@@ -11,10 +11,10 @@ import {
   ChevronLeft,
   ChevronRight,
   CircleHelp,
+  Code2,
   Command,
   FileText,
   Filter,
-  Github,
   Info,
   Layers3,
   LayoutGrid,
@@ -662,7 +662,7 @@ function App() {
                   )
                 }
               >
-                <Github className="mr-1.5 size-4" />
+                <Code2 className="mr-1.5 size-4" />
                 Repository
                 <ArrowUpRight className="ml-1 size-3.5" />
               </Button>
@@ -885,7 +885,7 @@ function App() {
                   title="Accordion"
                   description="Reveal details only when they are needed."
                 >
-                  <Accordion className="w-full" defaultValue="item-1">
+                  <Accordion className="w-full" defaultValue={["item-1"]}>
                     <AccordionItem value="item-1">
                       <AccordionTrigger>
                         Is the library accessible?
@@ -1131,7 +1131,9 @@ function App() {
                     </div>
                     <Slider
                       value={volume}
-                      onValueChange={setVolume}
+                      onValueChange={(value) =>
+                        setVolume(typeof value === "number" ? [value] : [...value])
+                      }
                       max={100}
                       step={1}
                     />
@@ -1573,7 +1575,9 @@ function App() {
 
                 <Select
                   value={activeCategory}
-                  onValueChange={setActiveCategory}
+                  onValueChange={(value) =>
+                    setActiveCategory(value ?? "All components")
+                  }
                 >
                   <SelectTrigger className="sm:w-48">
                     <Filter className="mr-2 size-4" />
