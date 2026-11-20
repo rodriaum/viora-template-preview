@@ -329,11 +329,11 @@ import {
 import {
   Check,
   ChevronDown,
-  ChevronLeft,
   ChevronRight,
   Copy,
   FileText,
   Plus,
+  RefreshCw,
   Search as SearchIcon,
   Settings,
   Share2,
