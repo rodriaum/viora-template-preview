@@ -638,7 +638,6 @@ function ComponentPreview({
         <div className="flex flex-col items-start gap-3">
           <ButtonGroup>
             <Button variant="default" size="sm">
-              <RefreshCw />
               Refresh
             </Button>
             <Button variant="default" size="sm" aria-label="Continue">
@@ -648,11 +647,13 @@ function ComponentPreview({
 
           <ButtonGroup orientation="vertical">
             <Button variant="ghost" size="sm">
-              <RefreshCw />
-              Refresh
+              Edit
             </Button>
-            <Button variant="ghost" size="sm" aria-label="Continue">
-              <ChevronRight />
+            <Button variant="ghost" size="sm">
+              Duplicate
+            </Button>
+            <Button variant="ghost" size="sm">
+              Archive
             </Button>
           </ButtonGroup>
         </div>
