@@ -333,7 +333,6 @@ import {
   Copy,
   FileText,
   Plus,
-  RefreshCw,
   Search as SearchIcon,
   Settings,
   Share2,
