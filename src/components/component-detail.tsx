@@ -421,7 +421,35 @@ const componentDescriptions: Record<string, string> = {
     "Reveal a short explanation when users point to or focus an interface element. Keep tooltip content supplementary rather than essential.",
 }
 
-function ComponentPreview({ id }: { id: string }) {
+function navigateBackWithTransition(
+  event: React.MouseEvent<HTMLAnchorElement>,
+  onNavigate: (path: string) => void,
+) {
+  event.preventDefault()
+
+  const transitionDocument = document as Document & {
+    startViewTransition?: (callback: () => void) => unknown
+  }
+
+  const navigate = () => onNavigate("/")
+
+  if (typeof transitionDocument.startViewTransition === "function") {
+    transitionDocument.startViewTransition(navigate)
+    return
+  }
+
+  navigate()
+}
+
+function ComponentPreview({
+  id,
+  basePath,
+  onNavigate,
+}: {
+  id: string
+  basePath: string
+  onNavigate: (path: string) => void
+}) {
   const [checked, setChecked] = React.useState(true)
   const [enabled, setEnabled] = React.useState(false)
   const [sliderValue, setSliderValue] = React.useState([64])
@@ -562,11 +590,21 @@ function ComponentPreview({ id }: { id: string }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Workspace</BreadcrumbLink>
+              <BreadcrumbLink
+                href={`${basePath}/`}
+                onClick={(event) => navigateBackWithTransition(event, onNavigate)}
+              >
+                Workspace
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Projects</BreadcrumbLink>
+              <BreadcrumbLink
+                href={`${basePath}/`}
+                onClick={(event) => navigateBackWithTransition(event, onNavigate)}
+              >
+                Projects
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -1686,11 +1724,8 @@ export default function ComponentDetail({
                   <BreadcrumbList>
                     <BreadcrumbItem>
                       <BreadcrumbLink
-                        href={`${basePath}/components`}
-                        onClick={(event) => {
-                          event.preventDefault()
-                          onNavigate("/components")
-                        }}
+                        href={`${basePath}/`}
+                        onClick={(event) => navigateBackWithTransition(event, onNavigate)}
                       >
                         Components
                       </BreadcrumbLink>
@@ -1726,7 +1761,11 @@ export default function ComponentDetail({
               </div>
               <div className="flex min-h-64 items-center justify-center rounded-2xl border bg-card p-6 sm:p-10">
                 <div className="flex w-full items-center justify-center">
-                  <ComponentPreview id={component.id} />
+                  <ComponentPreview
+                    id={component.id}
+                    basePath={basePath}
+                    onNavigate={onNavigate}
+                  />
                 </div>
               </div>
             </section>
