@@ -1,9 +1,6 @@
 import * as React from "react"
 
-import {
-  Layers3,
-  Search,
-} from "lucide-react"
+import { Search } from "lucide-react"
 
 import {
   Accordion,
@@ -433,7 +430,7 @@ function ComponentPreview({ id }: { id: string }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false)
   const [sheetOpen, setSheetOpen] = React.useState(false)
   const [selectedPage, setSelectedPage] = React.useState(2)
-  const [selectedView, setSelectedView] = React.useState("grid")
+  const [selectedView, setSelectedView] = React.useState<string[]>(["grid"])
   const [otp, setOtp] = React.useState("123")
   const [detailsOpen, setDetailsOpen] = React.useState(true)
 
@@ -1523,7 +1520,7 @@ function ComponentPreview({ id }: { id: string }) {
         <ToggleGroup
           type="single"
           value={selectedView}
-          onValueChange={(value) => value && setSelectedView(value)}
+          onValueChange={setSelectedView}
           variant="outline"
         >
           <ToggleGroupItem value="grid" aria-label="Grid view">Grid</ToggleGroupItem>
