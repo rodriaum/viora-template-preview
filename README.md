@@ -12,6 +12,7 @@ The same design system is available in two frameworks:
 | --- | --- |
 | [Vite Template](https://github.com/viora-studio/vite-template) | React + Vite |
 | [Next.js Template](https://github.com/viora-studio/nextjs-template) | React + Next.js |
+| [Nuxt.js Template](https://github.com/viora-studio/nuxtjs-template) | Vue + Nuxt.js |
 
 Both templates share the same visual language and component approach, adapted to their respective frameworks.
 
