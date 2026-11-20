@@ -635,20 +635,18 @@ function ComponentPreview({
 
     case "button-group":
       return (
-        <div className="flex flex-col items-start gap-3">
-          <ButtonGroup>
-            <Button variant="outline" size="sm">
-              <ChevronLeft />
-              Previous
-            </Button>
-            <Button variant="default" size="sm">
-              Continue
-            </Button>
-            <Button variant="outline" size="sm">
-              Next
-              <ChevronRight />
-            </Button>
-          </ButtonGroup>
+        <div className="flex w-full items-center justify-between gap-2">
+          <Button variant="outline" size="sm">
+            <ChevronLeft />
+            Previous
+          </Button>
+          <Button variant="default" size="sm">
+            Continue
+          </Button>
+          <Button variant="outline" size="sm">
+            Next
+            <ChevronRight />
+          </Button>
         </div>
       )
 
