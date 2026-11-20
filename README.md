@@ -2,7 +2,7 @@
 
 A minimal showcase of the UI components used across Viora templates. Built on [shadcn/ui](https://ui.shadcn.com/) with custom styling and component enhancements.
 
-[**Live Preview**](https://viora-studio.github.io/template-preview/)
+[**Preview Website**](https://viora-studio.github.io/template-preview/)
 
 ## Available templates
 
