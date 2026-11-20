@@ -645,13 +645,13 @@ function ComponentPreview({
           </ButtonGroup>
 
           <ButtonGroup orientation="vertical">
-            <Button variant="ghost" size="sm">
+            <Button variant="outline" size="sm">
               Edit
             </Button>
-            <Button variant="ghost" size="sm">
+            <Button variant="outline" size="sm">
               Duplicate
             </Button>
-            <Button variant="ghost" size="sm">
+            <Button variant="outline" size="sm">
               Archive
             </Button>
           </ButtonGroup>
