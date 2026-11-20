@@ -1518,7 +1518,6 @@ function ComponentPreview({ id }: { id: string }) {
     case "toggle-group":
       return (
         <ToggleGroup
-          type="single"
           value={selectedView}
           onValueChange={setSelectedView}
           variant="outline"
