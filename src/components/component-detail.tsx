@@ -581,6 +581,7 @@ function ComponentPreview({
           <Badge variant="secondary">Secondary</Badge>
           <Badge variant="outline">Outline</Badge>
           <Badge variant="destructive">Destructive</Badge>
+          <Badge variant="brand">Brand</Badge>
           <Badge variant="success">Success</Badge>
           <Badge variant="info">Info</Badge>
           <Badge variant="warning">Warning</Badge>
@@ -669,6 +670,7 @@ function ComponentPreview({
           <Button variant="secondary">Secondary</Button>
           <Button variant="outline">Cancel</Button>
           <Button variant="destructive">Delete</Button>
+          <Button variant="brand">Brand</Button>
           <Button variant="secondary-destructive">Remove</Button>
         </div>
       )
@@ -1578,7 +1580,7 @@ function ComponentPreview({
         <Toggle
           pressed={checked}
           onPressedChange={setChecked}
-          variant="outline"
+          variant={checked ? "brand" : "outline"}
         >
           <Check className="mr-2" />
           {checked ? "Saved" : "Save"}
