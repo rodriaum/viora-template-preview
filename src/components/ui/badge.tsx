@@ -21,13 +21,12 @@ const badgeVariants = cva(
         warning:
           "bg-warning-tint text-warning [a]:hover:bg-warning-tint/80",
         beta:
-          "border border-dashed border-brand/50 bg-transparent text-brand [a]:hover:bg-brand/10",
+          "border border-dashed border-primary/50 bg-transparent text-primary [a]:hover:bg-primary/10",
         outline:
           "border-border bg-input/30 text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground",
         ghost:
           "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
         link: "text-primary underline-offset-4 hover:underline",
-        "brand-link": "text-brand underline-offset-4 hover:underline",
       },
     },
     defaultVariants: {
