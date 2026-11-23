@@ -21,8 +21,8 @@ const buttonVariants = cva(
           "relative overflow-hidden bg-[var(--button-emphasis-bg)] text-white ring-inset ring-1 ring-[var(--button-emphasis-ring)] shadow-xs focus-visible:ring-[var(--button-emphasis-ring)] active:ring-[var(--button-emphasis-ring)]",
         "secondary-destructive":
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
-        link: "text-primary underline-offset-4 hover:underline",
-        "brand-link": "text-brand underline-offset-4 hover:underline",
+        link: "text-primary underline decoration-primary/60 underline-offset-4 hover:decoration-primary hover:decoration-2",
+        "brand-link": "text-brand underline decoration-brand/60 underline-offset-4 hover:decoration-brand hover:decoration-2",
       },
       size: {
         default:
