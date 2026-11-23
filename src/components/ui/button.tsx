@@ -44,7 +44,7 @@ const emphasisStyles = {
   default:
     "[--button-emphasis-ring:color-mix(in_oklch,var(--primary),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--primary),white_30%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--primary),white_15%)] [--button-emphasis-gradient-end:var(--primary)]",
   destructive:
-    "[--button-emphasis-token:var(--color-red-500,oklch(63.7%_0.237_25.331))] dark:[--button-emphasis-token:var(--color-red-600,oklch(57.7%_0.245_27.325))] [--button-emphasis-ring:color-mix(in_oklch,var(--button-emphasis-token),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--button-emphasis-token),white_30%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--button-emphasis-token),white_15%)] [--button-emphasis-gradient-end:var(--button-emphasis-token)]",
+    "[--button-emphasis-ring:color-mix(in_oklch,var(--destructive),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--destructive),white_30%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--destructive),white_15%)] [--button-emphasis-gradient-end:var(--destructive)]",
 } as const
 
 type ButtonProps = ButtonPrimitive.Props &
