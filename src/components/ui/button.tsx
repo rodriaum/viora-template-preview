@@ -9,6 +9,8 @@ const buttonVariants = cva(
       variant: {
         default:
           "relative overflow-hidden bg-[var(--button-emphasis-bg)] text-primary-foreground ring-inset ring-1 ring-[var(--button-emphasis-ring)] shadow-[inset_0_1px_2px_rgba(0,0,0,0.16)] focus-visible:ring-[var(--button-emphasis-ring)] active:ring-[var(--button-emphasis-ring)]",
+        brand:
+          "relative overflow-hidden bg-[var(--button-emphasis-bg)] text-brand-foreground ring-inset ring-1 ring-[var(--button-emphasis-ring)] shadow-[inset_0_1px_2px_rgba(0,0,0,0.16)] focus-visible:ring-[var(--button-emphasis-ring)] active:ring-[var(--button-emphasis-ring)]",
         outline:
           "border-border bg-input/30 hover:bg-input/50 hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground",
         secondary:
@@ -20,6 +22,7 @@ const buttonVariants = cva(
         "secondary-destructive":
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        "brand-link": "text-brand underline-offset-4 hover:underline",
       },
       size: {
         default:
@@ -43,6 +46,8 @@ const buttonVariants = cva(
 const emphasisStyles = {
   default:
     "[--button-emphasis-ring:color-mix(in_oklch,var(--primary),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--primary),white_30%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--primary),white_15%)] [--button-emphasis-gradient-end:var(--primary)]",
+  brand:
+    "[--button-emphasis-ring:color-mix(in_oklch,var(--brand),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--brand),white_30%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--brand),white_15%)] [--button-emphasis-gradient-end:var(--brand)]",
   destructive:
     "[--button-emphasis-ring:color-mix(in_oklch,var(--destructive-strong),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--destructive-strong),white_30%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--destructive-strong),white_15%)] [--button-emphasis-gradient-end:var(--destructive-strong)]",
 } as const
