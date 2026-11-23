@@ -5,7 +5,7 @@ import { defineConfig } from "vite"
 
 // GitHub Pages serves this project from /template-preview/.
 export default defineConfig({
-  base: process.env.GITHUB_ACTIONS ? "/template-preview/" : "/",
+  //base: process.env.GITHUB_ACTIONS ? "/template-preview/" : "/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
