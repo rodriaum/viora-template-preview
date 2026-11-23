@@ -6,13 +6,14 @@ A minimal showcase of the UI components used across Viora templates. Built on [s
 
 ## Available templates
 
-The same design system is available in two frameworks:
+The same design system is available:
 
 | Template | Framework |
 | --- | --- |
 | [Vite Template](https://github.com/viora-studio/vite-template) | React + Vite |
 | [Next.js Template](https://github.com/viora-studio/nextjs-template) | React + Next.js |
 | [Nuxt.js Template](https://github.com/viora-studio/nuxtjs-template) | Vue + Nuxt.js |
+| [React Native Template](https://github.com/viora-studio/react-native-uniwind-template) | React Native + Uniwind |
 
 Both templates share the same visual language and component approach, adapted to their respective frameworks.
 
