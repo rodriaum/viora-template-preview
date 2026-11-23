@@ -16,7 +16,7 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
         destructive:
-          "relative overflow-hidden bg-[var(--button-emphasis-bg)] text-destructive-foreground ring-inset ring-1 ring-[var(--button-emphasis-ring)] shadow-[inset_0_1px_2px_rgba(0,0,0,0.16)] focus-visible:ring-[var(--button-emphasis-ring)] active:ring-[var(--button-emphasis-ring)]",
+          "relative overflow-hidden bg-[var(--button-emphasis-bg)] text-white ring-inset ring-1 ring-[var(--button-emphasis-ring)] shadow-xs focus-visible:ring-[var(--button-emphasis-ring)] active:ring-[var(--button-emphasis-ring)]",
         "secondary-destructive":
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
@@ -44,7 +44,7 @@ const emphasisStyles = {
   default:
     "[--button-emphasis-ring:color-mix(in_oklch,var(--primary),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--primary),white_30%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--primary),white_15%)] [--button-emphasis-gradient-end:var(--primary)]",
   destructive:
-    "[--button-emphasis-ring:color-mix(in_oklch,var(--destructive),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--destructive),white_30%)] dark:[--button-emphasis-bg:color-mix(in_oklch,var(--destructive),black_25%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--destructive),white_15%)] dark:[--button-emphasis-gradient-start:color-mix(in_oklch,var(--destructive),black_15%)] [--button-emphasis-gradient-end:color-mix(in_oklch,var(--destructive),white_30%)] dark:[--button-emphasis-gradient-end:color-mix(in_oklch,var(--destructive),black_25%)]",
+    "[--button-emphasis-ring:color-mix(in_oklch,var(--destructive),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--destructive),white_30%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--destructive),white_15%)] [--button-emphasis-gradient-end:var(--destructive)]",
 } as const
 
 type ButtonProps = ButtonPrimitive.Props &
