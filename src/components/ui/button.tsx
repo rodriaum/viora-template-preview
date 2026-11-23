@@ -53,8 +53,14 @@ function getEmphasisStyle(variant: string | null | undefined) {
 
   return {
     "--button-emphasis-ring": `color-mix(in oklch, ${token}, black 10%)`,
-    "--button-emphasis-bg": `color-mix(in oklch, ${token}, white 30%)`,
-    "--button-emphasis-gradient-start": `color-mix(in oklch, ${token}, white 15%)`,
+    "--button-emphasis-bg":
+      variant === "destructive"
+        ? "light-dark(color-mix(in oklch, var(--destructive), white 30%), color-mix(in oklch, var(--destructive), black 20%))"
+        : `color-mix(in oklch, ${token}, white 30%)`,
+    "--button-emphasis-gradient-start":
+      variant === "destructive"
+        ? "light-dark(color-mix(in oklch, var(--destructive), white 15%), color-mix(in oklch, var(--destructive), black 10%))"
+        : `color-mix(in oklch, ${token}, white 15%)`,
     "--button-emphasis-gradient-end": token,
   } as CSSProperties & Record<`--${string}`, string>
 }
