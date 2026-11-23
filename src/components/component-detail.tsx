@@ -138,8 +138,16 @@ import {
 import {
   Area,
   AreaChart,
+  Bar,
+  BarChart,
   CartesianGrid,
+  Cell,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
   XAxis,
+  YAxis,
 } from "recharts"
 import {
   CodeBlock,
@@ -466,6 +474,22 @@ function ComponentPreview({
       label: "Visitors",
       color: "var(--chart-1)",
     },
+    signups: {
+      label: "Signups",
+      color: "var(--chart-2)",
+    },
+    desktop: {
+      label: "Desktop",
+      color: "var(--chart-3)",
+    },
+    mobile: {
+      label: "Mobile",
+      color: "var(--chart-4)",
+    },
+    tablet: {
+      label: "Tablet",
+      color: "var(--chart-5)",
+    },
   }
 
   switch (id) {
@@ -728,36 +752,125 @@ function ComponentPreview({
 
     case "chart":
       return (
-        <div className="w-full max-w-lg space-y-2">
-          <div>
-            <p className="text-sm font-medium">Visitors</p>
-            <p className="text-xs text-muted-foreground">Weekly activity</p>
+        <div className="grid w-full max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="min-w-0 rounded-xl border bg-card p-4">
+            <div className="mb-3">
+              <p className="text-sm font-medium">Area chart</p>
+              <p className="text-xs text-muted-foreground">Weekly visitors</p>
+            </div>
+            <ChartContainer config={chartConfig} className="h-44 w-full">
+              <AreaChart
+                data={[
+                  { day: "Mon", visitors: 24 },
+                  { day: "Tue", visitors: 38 },
+                  { day: "Wed", visitors: 31 },
+                  { day: "Thu", visitors: 52 },
+                  { day: "Fri", visitors: 45 },
+                  { day: "Sat", visitors: 68 },
+                  { day: "Sun", visitors: 59 },
+                ]}
+              >
+                <CartesianGrid vertical={false} />
+                <XAxis dataKey="day" tickLine={false} axisLine={false} />
+                <YAxis hide />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Area
+                  dataKey="visitors"
+                  type="monotone"
+                  stroke="var(--color-visitors)"
+                  fill="var(--color-visitors)"
+                  fillOpacity={0.18}
+                  strokeWidth={2}
+                />
+              </AreaChart>
+            </ChartContainer>
           </div>
-          <ChartContainer config={chartConfig} className="h-52 w-full">
-            <AreaChart
-              data={[
-                { day: "Mon", visitors: 24 },
-                { day: "Tue", visitors: 38 },
-                { day: "Wed", visitors: 31 },
-                { day: "Thu", visitors: 52 },
-                { day: "Fri", visitors: 45 },
-                { day: "Sat", visitors: 68 },
-                { day: "Sun", visitors: 59 },
-              ]}
-            >
-              <CartesianGrid vertical={false} />
-              <XAxis dataKey="day" tickLine={false} axisLine={false} />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <Area
-                dataKey="visitors"
-                type="monotone"
-                stroke="var(--color-visitors)"
-                fill="var(--color-visitors)"
-                fillOpacity={0.18}
-                strokeWidth={2}
-              />
-            </AreaChart>
-          </ChartContainer>
+
+          <div className="min-w-0 rounded-xl border bg-card p-4">
+            <div className="mb-3">
+              <p className="text-sm font-medium">Bar chart</p>
+              <p className="text-xs text-muted-foreground">Visitors and signups</p>
+            </div>
+            <ChartContainer config={chartConfig} className="h-44 w-full">
+              <BarChart
+                data={[
+                  { day: "Mon", visitors: 24, signups: 12 },
+                  { day: "Tue", visitors: 38, signups: 19 },
+                  { day: "Wed", visitors: 31, signups: 15 },
+                  { day: "Thu", visitors: 52, signups: 27 },
+                  { day: "Fri", visitors: 45, signups: 22 },
+                ]}
+              >
+                <CartesianGrid vertical={false} />
+                <XAxis dataKey="day" tickLine={false} axisLine={false} />
+                <YAxis hide />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Bar dataKey="visitors" fill="var(--color-visitors)" radius={4} />
+                <Bar dataKey="signups" fill="var(--color-signups)" radius={4} />
+              </BarChart>
+            </ChartContainer>
+          </div>
+
+          <div className="min-w-0 rounded-xl border bg-card p-4">
+            <div className="mb-3">
+              <p className="text-sm font-medium">Line chart</p>
+              <p className="text-xs text-muted-foreground">Traffic by device</p>
+            </div>
+            <ChartContainer config={chartConfig} className="h-44 w-full">
+              <LineChart
+                data={[
+                  { day: "Mon", desktop: 42, mobile: 28 },
+                  { day: "Tue", desktop: 48, mobile: 35 },
+                  { day: "Wed", desktop: 39, mobile: 43 },
+                  { day: "Thu", desktop: 58, mobile: 46 },
+                  { day: "Fri", desktop: 54, mobile: 51 },
+                ]}
+              >
+                <CartesianGrid vertical={false} />
+                <XAxis dataKey="day" tickLine={false} axisLine={false} />
+                <YAxis hide />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Line dataKey="desktop" type="monotone" stroke="var(--color-desktop)" strokeWidth={2} dot={false} />
+                <Line dataKey="mobile" type="monotone" stroke="var(--color-mobile)" strokeWidth={2} dot={false} />
+              </LineChart>
+            </ChartContainer>
+          </div>
+
+          <div className="min-w-0 rounded-xl border bg-card p-4">
+            <div className="mb-3">
+              <p className="text-sm font-medium">Pie chart</p>
+              <p className="text-xs text-muted-foreground">Visitors by device</p>
+            </div>
+            <ChartContainer config={chartConfig} className="h-44 w-full">
+              <PieChart>
+                <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
+                <Pie
+                  data={[
+                    { name: "desktop", value: 48 },
+                    { name: "mobile", value: 36 },
+                    { name: "tablet", value: 16 },
+                  ]}
+                  dataKey="value"
+                  nameKey="name"
+                  innerRadius={42}
+                  outerRadius={68}
+                  paddingAngle={3}
+                  strokeWidth={0}
+                >
+                  {[
+                    { name: "desktop" },
+                    { name: "mobile" },
+                    { name: "tablet" },
+                  ].map((entry) => (
+                    <Cell
+                      key={entry.name}
+                      fill={`var(--color-${entry.name})`}
+                    />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ChartContainer>
+          </div>
         </div>
       )
 
