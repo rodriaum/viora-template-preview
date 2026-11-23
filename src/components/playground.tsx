@@ -142,6 +142,7 @@ export default function Playground() {
                   <Button variant="outline">Outline</Button>
                   <Button variant="ghost">Ghost</Button>
                   <Button variant="destructive">Destructive</Button>
+                  <Button variant="brand">Brand</Button>
                   <Button variant="secondary-destructive">
                     Secondary Destructive
                   </Button>
@@ -168,6 +169,7 @@ export default function Playground() {
                   <Badge variant="secondary">Secondary</Badge>
                   <Badge variant="outline">Outline</Badge>
                   <Badge variant="destructive">Destructive</Badge>
+                  <Badge variant="brand">Brand</Badge>
                   <Badge variant="success">Success</Badge>
                   <Badge variant="info">Info</Badge>
                   <Badge variant="warning">Warning</Badge>
