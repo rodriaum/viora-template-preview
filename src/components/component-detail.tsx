@@ -1580,7 +1580,7 @@ function ComponentPreview({
         <Toggle
           pressed={checked}
           onPressedChange={setChecked}
-          variant={checked ? "default" : "outline"}
+          variant={checked ? "primary" : "outline"}
         >
           <Check className="mr-2" />
           {checked ? "Saved" : "Save"}
