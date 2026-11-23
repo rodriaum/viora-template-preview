@@ -41,26 +41,35 @@ const buttonVariants = cva(
   }
 )
 
-function getEmphasisStyle(variant: string | null | undefined) {
-  const token =
-    variant === "default"
-      ? "var(--primary)"
-      : variant === "destructive"
-        ? "var(--destructive)"
-        : undefined
+const emphasisStyles = {
+  default: {
+    token: "var(--primary)",
+    background: "color-mix(in oklch, var(--primary), white 30%)",
+    gradientStart: "color-mix(in oklch, var(--primary), white 15%)",
+  },
+  destructive: {
+    token: "var(--destructive)",
+    background:
+      "light-dark(color-mix(in oklch, var(--destructive), white 30%), color-mix(in oklch, var(--destructive), black 20%))",
+    gradientStart:
+      "light-dark(color-mix(in oklch, var(--destructive), white 15%), color-mix(in oklch, var(--destructive), black 10%))",
+  },
+} as const
 
-  if (!token) return undefined
+function getEmphasisStyle(variant: string | null | undefined) {
+  const emphasis =
+    variant && variant in emphasisStyles
+      ? emphasisStyles[variant as keyof typeof emphasisStyles]
+      : undefined
+
+  if (!emphasis) return undefined
+
+  const { token, background, gradientStart } = emphasis
 
   return {
     "--button-emphasis-ring": `color-mix(in oklch, ${token}, black 10%)`,
-    "--button-emphasis-bg":
-      variant === "destructive"
-        ? "light-dark(color-mix(in oklch, var(--destructive), white 30%), color-mix(in oklch, var(--destructive), black 20%))"
-        : `color-mix(in oklch, ${token}, white 30%)`,
-    "--button-emphasis-gradient-start":
-      variant === "destructive"
-        ? "light-dark(color-mix(in oklch, var(--destructive), white 15%), color-mix(in oklch, var(--destructive), black 10%))"
-        : `color-mix(in oklch, ${token}, white 15%)`,
+    "--button-emphasis-bg": background,
+    "--button-emphasis-gradient-start": gradientStart,
     "--button-emphasis-gradient-end": token,
   } as CSSProperties & Record<`--${string}`, string>
 }
@@ -76,8 +85,7 @@ function Button({
   style,
   ...props
 }: ButtonProps) {
-  const hasEmphasisGradient =
-    variant === "default" || variant === "destructive"
+  const hasEmphasisGradient = variant != null && variant in emphasisStyles
 
   const emphasisStyle = getEmphasisStyle(variant)
 
