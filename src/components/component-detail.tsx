@@ -581,6 +581,10 @@ function ComponentPreview({
           <Badge variant="secondary">Secondary</Badge>
           <Badge variant="outline">Outline</Badge>
           <Badge variant="destructive">Destructive</Badge>
+          <Badge variant="success">Success</Badge>
+          <Badge variant="info">Info</Badge>
+          <Badge variant="warning">Warning</Badge>
+          <Badge variant="beta">Beta</Badge>
         </div>
       )
 
