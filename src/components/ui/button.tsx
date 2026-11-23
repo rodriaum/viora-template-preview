@@ -44,7 +44,7 @@ const emphasisStyles = {
   default:
     "[--button-emphasis-ring:color-mix(in_oklch,var(--primary),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--primary),white_30%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--primary),white_15%)] [--button-emphasis-gradient-end:var(--primary)]",
   destructive:
-    "[--button-emphasis-ring:color-mix(in_oklch,var(--destructive),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--destructive),white_30%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--destructive),white_15%)] [--button-emphasis-gradient-end:var(--destructive)]",
+    "[--button-emphasis-ring:color-mix(in_oklch,var(--destructive-strong),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--destructive-strong),white_30%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--destructive-strong),white_15%)] [--button-emphasis-gradient-end:var(--destructive-strong)]",
 } as const
 
 type ButtonProps = ButtonPrimitive.Props &
