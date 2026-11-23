@@ -1,5 +1,4 @@
 import { Button as ButtonPrimitive } from "@base-ui/react/button"
-import type { CSSProperties } from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
@@ -42,37 +41,11 @@ const buttonVariants = cva(
 )
 
 const emphasisStyles = {
-  default: {
-    token: "var(--primary)",
-    background: "color-mix(in oklch, var(--primary), white 30%)",
-    gradientStart: "color-mix(in oklch, var(--primary), white 15%)",
-  },
-  destructive: {
-    token: "var(--destructive)",
-    background:
-      "light-dark(color-mix(in oklch, var(--destructive), white 30%), color-mix(in oklch, var(--destructive), black 20%))",
-    gradientStart:
-      "light-dark(color-mix(in oklch, var(--destructive), white 15%), color-mix(in oklch, var(--destructive), black 10%))",
-  },
+  default:
+    "[--button-emphasis-ring:color-mix(in_oklch,var(--primary),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--primary),white_30%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--primary),white_15%)] [--button-emphasis-gradient-end:var(--primary)]",
+  destructive:
+    "[--button-emphasis-ring:color-mix(in_oklch,var(--destructive),black_10%)] [--button-emphasis-bg:color-mix(in_oklch,var(--destructive),white_30%)] dark:[--button-emphasis-bg:color-mix(in_oklch,var(--destructive),black_25%)] [--button-emphasis-gradient-start:color-mix(in_oklch,var(--destructive),white_15%)] dark:[--button-emphasis-gradient-start:color-mix(in_oklch,var(--destructive),black_15%)] [--button-emphasis-gradient-end:color-mix(in_oklch,var(--destructive),white_30%)] dark:[--button-emphasis-gradient-end:color-mix(in_oklch,var(--destructive),black_25%)]",
 } as const
-
-function getEmphasisStyle(variant: string | null | undefined) {
-  const emphasis =
-    variant && variant in emphasisStyles
-      ? emphasisStyles[variant as keyof typeof emphasisStyles]
-      : undefined
-
-  if (!emphasis) return undefined
-
-  const { token, background, gradientStart } = emphasis
-
-  return {
-    "--button-emphasis-ring": `color-mix(in oklch, ${token}, black 10%)`,
-    "--button-emphasis-bg": background,
-    "--button-emphasis-gradient-start": gradientStart,
-    "--button-emphasis-gradient-end": token,
-  } as CSSProperties & Record<`--${string}`, string>
-}
 
 type ButtonProps = ButtonPrimitive.Props &
   VariantProps<typeof buttonVariants>
@@ -85,18 +58,21 @@ function Button({
   style,
   ...props
 }: ButtonProps) {
-  const hasEmphasisGradient = variant != null && variant in emphasisStyles
+  const emphasisClass =
+    variant != null && variant in emphasisStyles
+      ? emphasisStyles[variant as keyof typeof emphasisStyles]
+      : undefined
 
-  const emphasisStyle = getEmphasisStyle(variant)
+  const hasEmphasisGradient = Boolean(emphasisClass)
 
   return (
     <ButtonPrimitive
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      style={{
-        ...(emphasisStyle ?? {}),
-        ...style,
-      }}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+        emphasisClass
+      )}
+      style={style}
       {...props}
     >
       {hasEmphasisGradient ? (
