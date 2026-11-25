@@ -150,7 +150,16 @@ function PhoneInput({
         >
           {country.dialCode}
         </ComboboxTrigger>
-        <ComboboxContent className="w-72">
+        <ComboboxContent
+          side="bottom"
+          align="start"
+          collisionAvoidance={{
+            side: "shift",
+            align: "shift",
+            fallbackAxisSide: "none",
+          }}
+          className="w-72"
+        >
           <ComboboxInput placeholder="Search country..." />
           <ComboboxList>
             {sortedCountries.map((item) => (
