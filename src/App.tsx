@@ -22,7 +22,7 @@ const componentDefinitions = [
   ["Button Group", "Actions"],
   ["Button", "Actions"],
   ["Calendar", "Forms"],
-  ["Date Time Picker", "Forms"],
+  ["Date Time Picker", "Forms", true],
   ["Card", "Layout"],
   ["Carousel", "Navigation"],
   ["Chart", "Data display"],
@@ -76,13 +76,14 @@ const componentDefinitions = [
   ["Trace", "Data display"],
 ] as const
 
-const components = componentDefinitions.map(([name, category]) => ({
+const components = componentDefinitions.map(([name, category, beta]) => ({
   id: name
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, ""),
   name,
   category,
+  beta: beta ?? false,
 }))
 
 const categoryCount = new Set(components.map(({ category }) => category)).size
