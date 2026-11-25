@@ -163,7 +163,7 @@ function SelectItem({
   value,
   ...props
 }: SelectItemProps) {
-  const itemLabel = label ?? children ?? String(value ?? "")
+  const itemLabel = children ?? label ?? String(value ?? "")
 
   return (
     <SelectPrimitive.Item
@@ -173,7 +173,7 @@ function SelectItem({
         className
       )}
       value={value}
-      label={typeof itemLabel === "string" ? itemLabel : undefined}
+      label={typeof label === "string" ? label : typeof itemLabel === "string" ? itemLabel : undefined}
       {...props}
     >
       <SelectPrimitive.ItemText className="flex flex-1 shrink-0 gap-2 whitespace-nowrap">
