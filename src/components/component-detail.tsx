@@ -717,7 +717,6 @@ function ComponentPreview({
           <DateTimePicker
             value={selectedDateTime}
             onChange={setSelectedDateTime}
-            minuteStep={15}
           />
           <p className="mt-3 text-center text-xs text-muted-foreground">
             Selected: {selectedDateTime?.toLocaleString() ?? "No date selected"}
