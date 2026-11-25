@@ -47,6 +47,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { Calendar } from "@/components/ui/calendar"
+import { DateTimePicker } from "@/components/ui/date-time-picker"
 import {
   Card,
   CardContent,
@@ -387,6 +388,8 @@ const componentDescriptions: Record<string, string> = {
     "Reserve a predictable space for media such as images and video. Aspect ratio containers prevent content from jumping while assets load.",
   calendar:
     "Let users browse dates and select a day or a range. Calendars work well for scheduling, booking, and date-based filters.",
+  "date-time-picker":
+    "Let users select a date and a time in one place. The combined picker is useful for appointments, bookings, and scheduling.",
   card:
     "Group related information and actions into a self-contained surface. Cards help users scan dashboards, settings, and collections of content.",
   separator:
@@ -469,6 +472,7 @@ function ComponentPreview({
   const [selectedView, setSelectedView] = React.useState<string[]>(["grid"])
   const [otp, setOtp] = React.useState("123")
   const [detailsOpen, setDetailsOpen] = React.useState(true)
+  const [selectedDateTime, setSelectedDateTime] = React.useState<Date | undefined>(new Date(2026, 10, 25, 14, 30))
 
   const chartConfig = {
     visitors: {
@@ -704,6 +708,20 @@ function ComponentPreview({
       return (
         <div className="rounded-xl border p-3">
           <Calendar mode="single" />
+        </div>
+      )
+
+    case "date-time-picker":
+      return (
+        <div className="w-full overflow-x-auto">
+          <DateTimePicker
+            value={selectedDateTime}
+            onChange={setSelectedDateTime}
+            minuteStep={15}
+          />
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            Selected: {selectedDateTime?.toLocaleString() ?? "No date selected"}
+          </p>
         </div>
       )
 
