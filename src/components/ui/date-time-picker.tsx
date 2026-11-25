@@ -10,7 +10,6 @@ type DateTimePickerProps = {
   value?: Date
   defaultValue?: Date
   onChange?: (date: Date | undefined) => void
-  minuteStep?: number
   disabled?: boolean
   className?: string
   locale?: React.ComponentProps<typeof Calendar>["locale"]
@@ -20,22 +19,10 @@ function pad(value: number) {
   return String(value).padStart(2, "0")
 }
 
-function getMinutes(step: number) {
-  const safeStep = Number.isFinite(step)
-    ? Math.min(60, Math.max(1, Math.floor(step)))
-    : 1
-
-  return Array.from(
-    { length: Math.ceil(60 / safeStep) },
-    (_, index) => index * safeStep
-  ).filter((minute) => minute < 60)
-}
-
 function DateTimePicker({
   value,
   defaultValue,
   onChange,
-  minuteStep = 1,
   disabled = false,
   className,
   locale,
@@ -53,8 +40,8 @@ function DateTimePicker({
     []
   )
   const minutes = React.useMemo(
-    () => getMinutes(minuteStep),
-    [minuteStep]
+    () => Array.from({ length: 60 }, (_, minute) => minute),
+    []
   )
 
   const updateValue = React.useCallback(
@@ -116,8 +103,8 @@ function DateTimePicker({
       </div>
 
       <div className="grid w-full grid-cols-2 border-t sm:w-36 sm:border-l sm:border-t-0">
-        <div className="min-w-0 border-r">
-          <ScrollArea className="h-[280px]">
+        <div className="min-w-0">
+          <ScrollArea className="h-[280px] [&_[data-slot=scroll-area-scrollbar]]:hidden [&_[data-radix-scroll-area-scrollbar]]:hidden">
             <div className="flex flex-col gap-1 p-1">
               <span className="sticky top-0 z-10 bg-popover/95 px-1 py-2 text-center text-[10px] font-medium uppercase tracking-wide text-muted-foreground backdrop-blur">
                 HH
