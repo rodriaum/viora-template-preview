@@ -9,7 +9,7 @@ import SiteHeader from "@/components/site-header"
 const ComponentDetail = React.lazy(() => import("@/components/component-detail"))
 const Playground = React.lazy(() => import("@/components/playground"))
 
-const componentDefinitions = [
+const componentDefinitions: [string, string, boolean?][] = [
   ["Accordion", "Layout"],
   ["Alert Dialog", "Feedback"],
   ["Alert", "Feedback"],
