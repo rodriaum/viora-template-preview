@@ -140,18 +140,18 @@ function PhoneInput({
       >
         <SelectTrigger
           aria-label="Select country calling code"
-          className="h-full w-auto shrink-0 justify-center gap-2 rounded-l-4xl rounded-r-none border-0 bg-transparent px-3 py-0 font-medium shadow-none focus-visible:ring-0"
+          className="h-10 w-[5.5rem] shrink-0 justify-between rounded-l-4xl rounded-r-none border-0 bg-transparent px-3 py-0 font-medium shadow-none focus-visible:ring-0"
         >
-          <SelectValue>{country.dialCode}</SelectValue>
+          <SelectValue />
         </SelectTrigger>
         <SelectContent
           side="bottom"
           align="start"
           alignItemWithTrigger={false}
-          className="w-72"
+          className="w-72 min-w-72 max-h-64"
         >
           {sortedCountries.map((item) => (
-            <SelectItem key={item.code} value={item.code} label={item.name}>
+            <SelectItem key={item.code} value={item.code} label={item.dialCode}>
               <span className="text-base">{item.flag}</span>
               <span className="flex-1">{item.name}</span>
               <span className="text-muted-foreground">{item.dialCode}</span>
