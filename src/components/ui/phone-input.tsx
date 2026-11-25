@@ -3,13 +3,12 @@
 import * as React from "react"
 import { cn } from "cn"
 import {
-  Combobox,
-  ComboboxContent,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxList,
-  ComboboxTrigger,
-} from "@/components/ui/combobox"
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 export type PhoneCountry = {
   code: string
@@ -21,38 +20,38 @@ export type PhoneCountry = {
 }
 
 export const phoneCountries: PhoneCountry[] = [
-  { code: "PT", name: "Portugal", dialCode: "+351", flag: "🇵🇹", pattern: /^9\d{8}$/, placeholder: "912 345 678" },
-  { code: "IT", name: "Italy", dialCode: "+39", flag: "🇮🇹", pattern: /^\d{6,11}$/, placeholder: "312 345 6789" },
-  { code: "ES", name: "Spain", dialCode: "+34", flag: "🇪🇸", pattern: /^[6-9]\d{8}$/, placeholder: "612 345 678" },
-  { code: "FR", name: "France", dialCode: "+33", flag: "🇫🇷", pattern: /^[1-9]\d{8}$/, placeholder: "6 12 34 56 78" },
-  { code: "DE", name: "Germany", dialCode: "+49", flag: "🇩🇪", pattern: /^[1-9]\d{5,13}$/, placeholder: "151 23456789" },
-  { code: "GB", name: "United Kingdom", dialCode: "+44", flag: "🇬🇧", pattern: /^7\d{9}$/, placeholder: "7400 123456" },
-  { code: "US", name: "United States", dialCode: "+1", flag: "🇺🇸", pattern: /^[2-9]\d{9}$/, placeholder: "(201) 555-0123" },
-  { code: "CA", name: "Canada", dialCode: "+1", flag: "🇨🇦", pattern: /^[2-9]\d{9}$/, placeholder: "(204) 234-5678" },
-  { code: "BR", name: "Brazil", dialCode: "+55", flag: "🇧🇷", pattern: /^[1-9]{2}9?\d{8}$/, placeholder: "(11) 91234-5678" },
-  { code: "NL", name: "Netherlands", dialCode: "+31", flag: "🇳🇱", pattern: /^6\d{8}$/, placeholder: "6 12345678" },
-  { code: "BE", name: "Belgium", dialCode: "+32", flag: "🇧🇪", pattern: /^4\d{8}$/, placeholder: "470 12 34 56" },
-  { code: "CH", name: "Switzerland", dialCode: "+41", flag: "🇨🇭", pattern: /^\d{9}$/, placeholder: "78 123 45 67" },
-  { code: "AT", name: "Austria", dialCode: "+43", flag: "🇦🇹", pattern: /^\d{7,13}$/, placeholder: "664 123456" },
-  { code: "IE", name: "Ireland", dialCode: "+353", flag: "🇮🇪", pattern: /^8\d{8}$/, placeholder: "85 123 4567" },
-  { code: "PL", name: "Poland", dialCode: "+48", flag: "🇵🇱", pattern: /^[4-8]\d{8}$/, placeholder: "512 345 678" },
-  { code: "GR", name: "Greece", dialCode: "+30", flag: "🇬🇷", pattern: /^6\d{9}$/, placeholder: "691 234 5678" },
-  { code: "SE", name: "Sweden", dialCode: "+46", flag: "🇸🇪", pattern: /^7\d{8}$/, placeholder: "70 123 45 67" },
-  { code: "NO", name: "Norway", dialCode: "+47", flag: "🇳🇴", pattern: /^[49]\d{7}$/, placeholder: "412 34 567" },
-  { code: "DK", name: "Denmark", dialCode: "+45", flag: "🇩🇰", pattern: /^[2-9]\d{7}$/, placeholder: "20 12 34 56" },
-  { code: "FI", name: "Finland", dialCode: "+358", flag: "🇫🇮", pattern: /^\d{7,10}$/, placeholder: "40 1234567" },
-  { code: "AU", name: "Australia", dialCode: "+61", flag: "🇦🇺", pattern: /^4\d{8}$/, placeholder: "412 345 678" },
-  { code: "NZ", name: "New Zealand", dialCode: "+64", flag: "🇳🇿", pattern: /^2\d{7,9}$/, placeholder: "21 123 4567" },
-  { code: "MX", name: "Mexico", dialCode: "+52", flag: "🇲🇽", pattern: /^[2-9]\d{9}$/, placeholder: "55 1234 5678" },
-  { code: "AR", name: "Argentina", dialCode: "+54", flag: "🇦🇷", pattern: /^\d{10,11}$/, placeholder: "11 2345 6789" },
-  { code: "JP", name: "Japan", dialCode: "+81", flag: "🇯🇵", pattern: /^[1-9]\d{8,9}$/, placeholder: "90 1234 5678" },
-  { code: "KR", name: "South Korea", dialCode: "+82", flag: "🇰🇷", pattern: /^1\d{8,9}$/, placeholder: "10 1234 5678" },
-  { code: "IN", name: "India", dialCode: "+91", flag: "🇮🇳", pattern: /^[6-9]\d{9}$/, placeholder: "98765 43210" },
-  { code: "CN", name: "China", dialCode: "+86", flag: "🇨🇳", pattern: /^1\d{10}$/, placeholder: "131 2345 6789" },
-  { code: "TR", name: "Türkiye", dialCode: "+90", flag: "🇹🇷", pattern: /^5\d{9}$/, placeholder: "501 234 56 78" },
-  { code: "UA", name: "Ukraine", dialCode: "+380", flag: "🇺🇦", pattern: /^\d{9}$/, placeholder: "50 123 4567" },
-  { code: "ZA", name: "South Africa", dialCode: "+27", flag: "🇿🇦", pattern: /^[6-8]\d{8}$/, placeholder: "82 123 4567" },
-  { code: "AE", name: "United Arab Emirates", dialCode: "+971", flag: "🇦🇪", pattern: /^5\d{8}$/, placeholder: "50 123 4567" },
+  { code: "PT", name: "Portugal", dialCode: "+351", flag: "🇵🇹", pattern: /^9\\d{8}$/, placeholder: "912 345 678" },
+  { code: "IT", name: "Italy", dialCode: "+39", flag: "🇮🇹", pattern: /^\\d{6,11}$/, placeholder: "312 345 6789" },
+  { code: "ES", name: "Spain", dialCode: "+34", flag: "🇪🇸", pattern: /^[6-9]\\d{8}$/, placeholder: "612 345 678" },
+  { code: "FR", name: "France", dialCode: "+33", flag: "🇫🇷", pattern: /^[1-9]\\d{8}$/, placeholder: "6 12 34 56 78" },
+  { code: "DE", name: "Germany", dialCode: "+49", flag: "🇩🇪", pattern: /^[1-9]\\d{5,13}$/, placeholder: "151 23456789" },
+  { code: "GB", name: "United Kingdom", dialCode: "+44", flag: "🇬🇧", pattern: /^7\\d{9}$/, placeholder: "7400 123456" },
+  { code: "US", name: "United States", dialCode: "+1", flag: "🇺🇸", pattern: /^[2-9]\\d{9}$/, placeholder: "(201) 555-0123" },
+  { code: "CA", name: "Canada", dialCode: "+1", flag: "🇨🇦", pattern: /^[2-9]\\d{9}$/, placeholder: "(204) 234-5678" },
+  { code: "BR", name: "Brazil", dialCode: "+55", flag: "🇧🇷", pattern: /^[1-9]{2}9?\\d{8}$/, placeholder: "(11) 91234-5678" },
+  { code: "NL", name: "Netherlands", dialCode: "+31", flag: "🇳🇱", pattern: /^6\\d{8}$/, placeholder: "6 12345678" },
+  { code: "BE", name: "Belgium", dialCode: "+32", flag: "🇧🇪", pattern: /^4\\d{8}$/, placeholder: "470 12 34 56" },
+  { code: "CH", name: "Switzerland", dialCode: "+41", flag: "🇨🇭", pattern: /^\\d{9}$/, placeholder: "78 123 45 67" },
+  { code: "AT", name: "Austria", dialCode: "+43", flag: "🇦🇹", pattern: /^\\d{7,13}$/, placeholder: "664 123456" },
+  { code: "IE", name: "Ireland", dialCode: "+353", flag: "🇮🇪", pattern: /^8\\d{8}$/, placeholder: "85 123 4567" },
+  { code: "PL", name: "Poland", dialCode: "+48", flag: "🇵🇱", pattern: /^[4-8]\\d{8}$/, placeholder: "512 345 678" },
+  { code: "GR", name: "Greece", dialCode: "+30", flag: "🇬🇷", pattern: /^6\\d{9}$/, placeholder: "691 234 5678" },
+  { code: "SE", name: "Sweden", dialCode: "+46", flag: "🇸🇪", pattern: /^7\\d{8}$/, placeholder: "70 123 45 67" },
+  { code: "NO", name: "Norway", dialCode: "+47", flag: "🇳🇴", pattern: /^[49]\\d{7}$/, placeholder: "412 34 567" },
+  { code: "DK", name: "Denmark", dialCode: "+45", flag: "🇩🇰", pattern: /^[2-9]\\d{7}$/, placeholder: "20 12 34 56" },
+  { code: "FI", name: "Finland", dialCode: "+358", flag: "🇫🇮", pattern: /^\\d{7,10}$/, placeholder: "40 1234567" },
+  { code: "AU", name: "Australia", dialCode: "+61", flag: "🇦🇺", pattern: /^4\\d{8}$/, placeholder: "412 345 678" },
+  { code: "NZ", name: "New Zealand", dialCode: "+64", flag: "🇳🇿", pattern: /^2\\d{7,9}$/, placeholder: "21 123 4567" },
+  { code: "MX", name: "Mexico", dialCode: "+52", flag: "🇲🇽", pattern: /^[2-9]\\d{9}$/, placeholder: "55 1234 5678" },
+  { code: "AR", name: "Argentina", dialCode: "+54", flag: "🇦🇷", pattern: /^\\d{10,11}$/, placeholder: "11 2345 6789" },
+  { code: "JP", name: "Japan", dialCode: "+81", flag: "🇯🇵", pattern: /^[1-9]\\d{8,9}$/, placeholder: "90 1234 5678" },
+  { code: "KR", name: "South Korea", dialCode: "+82", flag: "🇰🇷", pattern: /^1\\d{8,9}$/, placeholder: "10 1234 5678" },
+  { code: "IN", name: "India", dialCode: "+91", flag: "🇮🇳", pattern: /^[6-9]\\d{9}$/, placeholder: "98765 43210" },
+  { code: "CN", name: "China", dialCode: "+86", flag: "🇨🇳", pattern: /^1\\d{10}$/, placeholder: "131 2345 6789" },
+  { code: "TR", name: "Türkiye", dialCode: "+90", flag: "🇹🇷", pattern: /^5\\d{9}$/, placeholder: "501 234 56 78" },
+  { code: "UA", name: "Ukraine", dialCode: "+380", flag: "🇺🇦", pattern: /^\\d{9}$/, placeholder: "50 123 4567" },
+  { code: "ZA", name: "South Africa", dialCode: "+27", flag: "🇿🇦", pattern: /^[6-8]\\d{8}$/, placeholder: "82 123 4567" },
+  { code: "AE", name: "United Arab Emirates", dialCode: "+971", flag: "🇦🇪", pattern: /^5\\d{8}$/, placeholder: "50 123 4567" },
 ]
 
 type PhoneInputProps = Omit<
@@ -68,7 +67,7 @@ type PhoneInputProps = Omit<
 }
 
 function getDigits(value: string) {
-  return value.replace(/\D/g, "")
+  return value.replace(/\\D/g, "")
 }
 
 function PhoneInput({
@@ -105,7 +104,9 @@ function PhoneInput({
     onChange?.(nextDigits ? `${country.dialCode}${nextDigits}` : "", country)
   }
 
-  const handleCountryChange = (nextCode: string) => {
+  const handleCountryChange = (nextCode: string | null) => {
+    if (!nextCode) return
+
     const nextCountry =
       phoneCountries.find((item) => item.code === nextCode) ?? phoneCountries[0]
 
@@ -121,10 +122,6 @@ function PhoneInput({
     () => phoneCountries.slice().sort((a, b) => a.name.localeCompare(b.name)),
     []
   )
-  const countryCodes = React.useMemo(
-    () => sortedCountries.map((item) => item.code),
-    [sortedCountries]
-  )
 
   return (
     <div
@@ -136,42 +133,32 @@ function PhoneInput({
         className
       )}
     >
-      <Combobox
-        items={countryCodes}
+      <Select
         value={country.code}
-        onValueChange={(nextCode) => {
-          if (typeof nextCode === "string") handleCountryChange(nextCode)
-        }}
+        onValueChange={handleCountryChange}
+        disabled={disabled}
       >
-        <ComboboxTrigger
+        <SelectTrigger
           aria-label="Select country calling code"
-          disabled={disabled}
-          className="inline-flex h-full shrink-0 items-center justify-center gap-2 rounded-l-4xl px-3 text-sm font-medium leading-none outline-none"
+          className="h-full w-auto shrink-0 justify-center gap-2 rounded-l-4xl rounded-r-none border-0 bg-transparent px-3 py-0 font-medium shadow-none focus-visible:ring-0"
         >
-          {country.dialCode}
-        </ComboboxTrigger>
-        <ComboboxContent
+          <SelectValue>{country.dialCode}</SelectValue>
+        </SelectTrigger>
+        <SelectContent
           side="bottom"
           align="start"
-          collisionAvoidance={{
-            side: "shift",
-            align: "shift",
-            fallbackAxisSide: "none",
-          }}
+          alignItemWithTrigger={false}
           className="w-72"
         >
-          <ComboboxInput placeholder="Search country..." />
-          <ComboboxList>
-            {sortedCountries.map((item) => (
-              <ComboboxItem key={item.code} value={item.code}>
-                <span className="text-base">{item.flag}</span>
-                <span className="flex-1">{item.name}</span>
-                <span className="text-muted-foreground">{item.dialCode}</span>
-              </ComboboxItem>
-            ))}
-          </ComboboxList>
-        </ComboboxContent>
-      </Combobox>
+          {sortedCountries.map((item) => (
+            <SelectItem key={item.code} value={item.code} label={item.name}>
+              <span className="text-base">{item.flag}</span>
+              <span className="flex-1">{item.name}</span>
+              <span className="text-muted-foreground">{item.dialCode}</span>
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
 
       <div className="h-5 w-px shrink-0 bg-border" />
 
