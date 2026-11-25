@@ -1754,18 +1754,24 @@ function ComponentPreview({
       )
   }
 }
-export default function ComponentDetail({
+type ComponentSidebarNavigationProps = {
+  component: ComponentInfo
+  components: ComponentInfo[]
+  basePath: string
+  componentQuery: string
+  onComponentQueryChange: (value: string) => void
+  onNavigate: (path: string) => void
+}
+
+function ComponentSidebarNavigation({
   component,
   components,
-  onNavigate,
   basePath,
-}: ComponentDetailProps) {
+  componentQuery,
+  onComponentQueryChange,
+  onNavigate,
+}: ComponentSidebarNavigationProps) {
   const { setOpenMobile } = useSidebar()
-  const [componentQuery, setComponentQuery] = React.useState("")
-  const description =
-    componentDescriptions[component.id] ??
-    categoryDescriptions[component.category] ??
-    "A reusable interface building block from the Viora component library."
 
   const filteredComponents = components.filter((item) =>
     item.name.toLowerCase().includes(componentQuery.trim().toLowerCase())
@@ -1778,6 +1784,80 @@ export default function ComponentDetail({
     groups[item.category].push(item)
     return groups
   }, {})
+
+  return (
+    <Sidebar collapsible="icon" className="top-14 h-[calc(100svh-3.5rem)]">
+      <SidebarHeader>
+        <div className="flex items-center justify-between px-2">
+          <SidebarGroupLabel className="px-0 text-sm font-semibold text-sidebar-foreground">
+            Components
+          </SidebarGroupLabel>
+          <Badge variant="secondary">{components.length}</Badge>
+        </div>
+        <div className="relative">
+          <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+          <SidebarInput
+            value={componentQuery}
+            onChange={(event) => onComponentQueryChange(event.target.value)}
+            placeholder="Search components"
+            aria-label="Search components"
+            className="pl-9"
+          />
+        </div>
+      </SidebarHeader>
+
+      <SidebarContent>
+        {Object.entries(groupedComponents)
+          .sort(([first], [second]) => first.localeCompare(second))
+          .map(([category, items]) => (
+            <SidebarGroup key={category}>
+              <SidebarGroupLabel>{category}</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {items.map((item) => (
+                    <SidebarMenuItem key={item.id}>
+                      <SidebarMenuButton
+                        render={
+                          <a href={`${basePath}/components/${item.id}`} />
+                        }
+                        isActive={item.id === component.id}
+                        tooltip={item.name}
+                        onClick={(event) => {
+                          event.preventDefault()
+                          setOpenMobile(false)
+                          onNavigate(`/components/${item.id}`)
+                        }}
+                      >
+                        <span>{item.name}</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          ))}
+        {filteredComponents.length === 0 ? (
+          <p className="px-4 py-4 text-sm text-muted-foreground">
+            No components found.
+          </p>
+        ) : null}
+      </SidebarContent>
+    </Sidebar>
+  )
+}
+
+export default function ComponentDetail({
+  component,
+  components,
+  onNavigate,
+  basePath,
+}: ComponentDetailProps) {
+  const [componentQuery, setComponentQuery] = React.useState("")
+  const description =
+    componentDescriptions[component.id] ??
+    categoryDescriptions[component.category] ??
+    "A reusable interface building block from the Viora component library."
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SidebarProvider className="min-h-screen flex-col items-stretch">
@@ -1787,63 +1867,14 @@ export default function ComponentDetail({
           showComponentSidebar
         />
         <div className="flex min-h-[calc(100svh-3.5rem)] flex-1 items-stretch">
-          <Sidebar collapsible="icon" className="top-14 h-[calc(100svh-3.5rem)]">
-          <SidebarHeader>
-            <div className="flex items-center justify-between px-2">
-              <SidebarGroupLabel className="px-0 text-sm font-semibold text-sidebar-foreground">
-                Components
-              </SidebarGroupLabel>
-              <Badge variant="secondary">{components.length}</Badge>
-            </div>
-            <div className="relative">
-              <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-              <SidebarInput
-                value={componentQuery}
-                onChange={(event) => setComponentQuery(event.target.value)}
-                placeholder="Search components"
-                aria-label="Search components"
-                className="pl-9"
-              />
-            </div>
-          </SidebarHeader>
-
-          <SidebarContent>
-            {Object.entries(groupedComponents)
-              .sort(([first], [second]) => first.localeCompare(second))
-              .map(([category, items]) => (
-                <SidebarGroup key={category}>
-                  <SidebarGroupLabel>{category}</SidebarGroupLabel>
-                  <SidebarGroupContent>
-                    <SidebarMenu>
-                      {items.map((item) => (
-                        <SidebarMenuItem key={item.id}>
-                          <SidebarMenuButton
-                            render={
-                              <a href={`${basePath}/components/${item.id}`} />
-                            }
-                            isActive={item.id === component.id}
-                            tooltip={item.name}
-                            onClick={(event) => {
-                              event.preventDefault()
-                              setOpenMobile(false)
-                              onNavigate(`/components/${item.id}`)
-                            }}
-                          >
-                            <span>{item.name}</span>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </SidebarGroup>
-              ))}
-            {filteredComponents.length === 0 ? (
-              <p className="px-4 py-4 text-sm text-muted-foreground">
-                No components found.
-              </p>
-            ) : null}
-          </SidebarContent>
-        </Sidebar>
+          <ComponentSidebarNavigation
+            component={component}
+            components={components}
+            basePath={basePath}
+            componentQuery={componentQuery}
+            onComponentQueryChange={setComponentQuery}
+            onNavigate={onNavigate}
+          />
 
         <SidebarInset className="min-w-0 bg-background">
           <main className="mx-auto w-full max-w-5xl space-y-10 px-5 py-9 sm:py-12">
