@@ -1,9 +1,15 @@
 "use client"
 
 import * as React from "react"
-import { ChevronDown } from "lucide-react"
-
 import { cn } from "cn"
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxTrigger,
+} from "@/components/ui/combobox"
 
 export type PhoneCountry = {
   code: string
@@ -111,6 +117,11 @@ function PhoneInput({
     }
   }
 
+  const sortedCountries = React.useMemo(
+    () => phoneCountries.slice().sort((a, b) => a.name.localeCompare(b.name)),
+    []
+  )
+
   return (
     <div
       className={cn(
@@ -121,31 +132,35 @@ function PhoneInput({
         className
       )}
     >
-      <div className="relative flex h-full shrink-0 items-center">
-        <select
-          aria-label="Select country"
-          value={country.code}
-          onChange={(event) => handleCountryChange(event.target.value)}
+      <Combobox
+        items={sortedCountries.map((item) => item.code)}
+        value={country.code}
+        onValueChange={(nextCode) => {
+          if (typeof nextCode === "string") handleCountryChange(nextCode)
+        }}
+      >
+        <ComboboxTrigger
+          aria-label="Select country calling code"
           disabled={disabled}
-          className="h-full max-w-36 cursor-pointer appearance-none rounded-l-4xl bg-transparent py-0 pr-7 pl-3 text-sm outline-none"
+          className="h-full shrink-0 rounded-l-4xl px-3 text-sm font-medium outline-none"
         >
-          {phoneCountries
-            .slice()
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map((item) => (
-              <option key={item.code} value={item.code}>
-                {item.flag} {item.name} ({item.dialCode})
-              </option>
+          {country.dialCode}
+        </ComboboxTrigger>
+        <ComboboxContent className="w-72">
+          <ComboboxInput placeholder="Search country..." />
+          <ComboboxList>
+            {sortedCountries.map((item) => (
+              <ComboboxItem key={item.code} value={item.code}>
+                <span className="text-base">{item.flag}</span>
+                <span className="flex-1">{item.name}</span>
+                <span className="text-muted-foreground">{item.dialCode}</span>
+              </ComboboxItem>
             ))}
-        </select>
-        <ChevronDown className="pointer-events-none absolute right-2 size-3.5 text-muted-foreground" />
-      </div>
+          </ComboboxList>
+        </ComboboxContent>
+      </Combobox>
 
       <div className="h-5 w-px shrink-0 bg-border" />
-
-      <span className="shrink-0 px-3 text-sm text-muted-foreground">
-        {country.dialCode}
-      </span>
 
       <input
         type="tel"
@@ -156,7 +171,7 @@ function PhoneInput({
         placeholder={placeholder ?? country.placeholder}
         disabled={disabled}
         aria-invalid={invalid || !isValid}
-        className="h-full min-w-0 flex-1 rounded-r-4xl bg-transparent pr-3 text-sm outline-none placeholder:text-muted-foreground"
+        className="h-full min-w-0 flex-1 rounded-r-4xl bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground"
         {...props}
       />
     </div>
