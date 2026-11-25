@@ -121,6 +121,10 @@ function PhoneInput({
     () => phoneCountries.slice().sort((a, b) => a.name.localeCompare(b.name)),
     []
   )
+  const countryCodes = React.useMemo(
+    () => sortedCountries.map((item) => item.code),
+    [sortedCountries]
+  )
 
   return (
     <div
@@ -133,7 +137,7 @@ function PhoneInput({
       )}
     >
       <Combobox
-        items={sortedCountries.map((item) => item.code)}
+        items={countryCodes}
         value={country.code}
         onValueChange={(nextCode) => {
           if (typeof nextCode === "string") handleCountryChange(nextCode)
@@ -142,7 +146,7 @@ function PhoneInput({
         <ComboboxTrigger
           aria-label="Select country calling code"
           disabled={disabled}
-          className="h-full shrink-0 rounded-l-4xl px-3 text-sm font-medium outline-none"
+          className="inline-flex h-full shrink-0 items-center justify-center gap-2 rounded-l-4xl px-3 text-sm font-medium leading-none outline-none"
         >
           {country.dialCode}
         </ComboboxTrigger>
