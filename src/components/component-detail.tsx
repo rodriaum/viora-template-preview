@@ -353,6 +353,7 @@ export type ComponentInfo = {
   id: string
   name: string
   category: string
+  beta?: boolean
 }
 
 type ComponentDetailProps = {
@@ -1846,6 +1847,7 @@ function ComponentSidebarNavigation({
                         }}
                       >
                         <span>{item.name}</span>
+                        {item.beta ? <Badge variant="beta">Beta</Badge> : null}
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
@@ -1915,9 +1917,20 @@ export default function ComponentDetail({
                 </Breadcrumb>
 
                 <div className="space-y-3">
-                  <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-                    {component.name}
-                  </h1>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                      {component.name}
+                    </h1>
+                    {component.beta ? <Badge variant="beta">Beta</Badge> : null}
+                  </div>
+                  {component.beta ? (
+                    <Alert variant="default">
+                      <AlertTitle>Beta component</AlertTitle>
+                      <AlertDescription>
+                        This component is currently in beta and may not be available in templates yet.
+                      </AlertDescription>
+                    </Alert>
+                  ) : null}
                   <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
                     {description}
                   </p>
