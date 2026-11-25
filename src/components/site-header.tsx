@@ -10,11 +10,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { useTheme } from "@/components/theme-provider"
+import { SidebarTrigger } from "@/components/ui/sidebar"
 
 type SiteHeaderProps = {
   isHome?: boolean
   basePath?: string
   onNavigate?: (path: string) => void
+  showComponentSidebar?: boolean
 }
 
 function ThemeToggle() {
@@ -42,6 +44,7 @@ export default function SiteHeader({
   isHome = false,
   basePath = "",
   onNavigate,
+  showComponentSidebar = false,
 }: SiteHeaderProps) {
   const homeHref = basePath ? `${basePath}/` : "/"
 
@@ -63,69 +66,78 @@ export default function SiteHeader({
     <header className="sticky top-0 z-40 border-b bg-background/85 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5">
         <div className="flex items-center gap-2">
-          <Sheet>
-            <SheetTrigger
-              render={
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="size-9 sm:hidden"
-                  aria-label="Open navigation menu"
-                />
-              }
+{showComponentSidebar ? (
+            <SidebarTrigger
+              className="size-9 sm:hidden"
+              aria-label="Open component navigation"
             >
               <Menu className="size-5" />
-            </SheetTrigger>
-            <SheetContent side="left" className="w-[min(20rem,85vw)]">
-              <SheetHeader className="border-b text-left">
-                <SheetTitle className="flex items-center gap-2">
-                  <Layers3 className="size-4" />
-                  <span>Viora</span>
-                  <span className="font-normal text-muted-foreground">/ UI</span>
-                </SheetTitle>
-              </SheetHeader>
-
-              <nav className="flex flex-col gap-1 px-4 py-4 text-sm">
-                <SheetClose
-                  render={
-                    <a
-                      href={homeHref}
-                      onClick={navigate("/")}
-                      aria-current={isHome ? "page" : undefined}
-                      className={`rounded-lg px-3 py-2.5 font-medium ${
-                        isHome
-                          ? "bg-accent text-accent-foreground"
-                          : "text-muted-foreground hover:bg-accent hover:text-foreground"
-                      }`}
-                    />
-                  }
-                >
-                  Home
-                </SheetClose>
-                <SheetClose
-                  render={
-                    <a
-                      href={`${homeHref}components`}
-                      onClick={navigate("/components")}
-                      aria-current={!isHome ? "page" : undefined}
-                      className={`rounded-lg px-3 py-2.5 font-medium ${
-                        !isHome
-                          ? "bg-accent text-accent-foreground"
-                          : "text-muted-foreground hover:bg-accent hover:text-foreground"
-                      }`}
-                    />
-                  }
-                >
-                  Components
-                </SheetClose>
-              </nav>
-
-              <div className="mt-auto flex items-center justify-between border-t px-5 py-4">
-                <span className="text-sm text-muted-foreground">Appearance</span>
-                <ThemeToggle />
-              </div>
-            </SheetContent>
-          </Sheet>
+            </SidebarTrigger>
+          ) : (
+            <Sheet>
+              <SheetTrigger
+                render={
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="size-9 sm:hidden"
+                    aria-label="Open navigation menu"
+                  />
+                }
+              >
+                <Menu className="size-5" />
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[min(20rem,85vw)]">
+                <SheetHeader className="border-b text-left">
+                  <SheetTitle className="flex items-center gap-2">
+                    <Layers3 className="size-4" />
+                    <span>Viora</span>
+                    <span className="font-normal text-muted-foreground">/ UI</span>
+                  </SheetTitle>
+                </SheetHeader>
+  
+                <nav className="flex flex-col gap-1 px-4 py-4 text-sm">
+                  <SheetClose
+                    render={
+                      <a
+                        href={homeHref}
+                        onClick={navigate("/")}
+                        aria-current={isHome ? "page" : undefined}
+                        className={`rounded-lg px-3 py-2.5 font-medium ${
+                          isHome
+                            ? "bg-accent text-accent-foreground"
+                            : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                        }`}
+                      />
+                    }
+                  >
+                    Home
+                  </SheetClose>
+                  <SheetClose
+                    render={
+                      <a
+                        href={`${homeHref}components`}
+                        onClick={navigate("/components")}
+                        aria-current={!isHome ? "page" : undefined}
+                        className={`rounded-lg px-3 py-2.5 font-medium ${
+                          !isHome
+                            ? "bg-accent text-accent-foreground"
+                            : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                        }`}
+                      />
+                    }
+                  >
+                    Components
+                  </SheetClose>
+                </nav>
+  
+                <div className="mt-auto flex items-center justify-between border-t px-5 py-4">
+                  <span className="text-sm text-muted-foreground">Appearance</span>
+                  <ThemeToggle />
+                </div>
+              </SheetContent>
+            </Sheet>
+          )}
 
           <a
             href={isHome ? "#" : homeHref}
