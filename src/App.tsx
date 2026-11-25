@@ -23,6 +23,7 @@ const componentDefinitions: [string, string, boolean?][] = [
   ["Button", "Actions"],
   ["Calendar", "Forms"],
   ["Date Time Picker", "Forms", true],
+  ["Phone Input", "Forms", true],
   ["Card", "Layout"],
   ["Carousel", "Navigation"],
   ["Chart", "Data display"],
