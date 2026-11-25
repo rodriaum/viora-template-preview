@@ -22,6 +22,7 @@ const componentDefinitions = [
   ["Button Group", "Actions"],
   ["Button", "Actions"],
   ["Calendar", "Forms"],
+  ["Date Time Picker", "Forms"],
   ["Card", "Layout"],
   ["Carousel", "Navigation"],
   ["Chart", "Data display"],
