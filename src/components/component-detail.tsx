@@ -43,7 +43,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarProvider
+  SidebarProvider,
+  useSidebar,
 } from "@/components/ui/sidebar"
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -1759,6 +1760,7 @@ export default function ComponentDetail({
   onNavigate,
   basePath,
 }: ComponentDetailProps) {
+  const { setOpenMobile } = useSidebar()
   const [componentQuery, setComponentQuery] = React.useState("")
   const description =
     componentDescriptions[component.id] ??
@@ -1823,6 +1825,7 @@ export default function ComponentDetail({
                             tooltip={item.name}
                             onClick={(event) => {
                               event.preventDefault()
+                              setOpenMobile(false)
                               onNavigate(`/components/${item.id}`)
                             }}
                           >
