@@ -3,7 +3,6 @@
 import * as React from "react"
 import { Calendar } from "@/components/ui/calendar"
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "cn"
 
 type DateTimePickerProps = {
@@ -104,11 +103,12 @@ function DateTimePicker({
 
       <div className="grid w-full grid-cols-2 border-t sm:w-36 sm:border-l sm:border-t-0">
         <div className="min-w-0">
-          <ScrollArea className="h-[280px] [&_[data-slot=scroll-area-scrollbar]]:hidden [&_[data-radix-scroll-area-scrollbar]]:hidden">
-            <div className="flex flex-col gap-1 p-1">
-              <span className="sticky top-0 z-10 bg-popover/95 px-1 py-2 text-center text-[10px] font-medium uppercase tracking-wide text-muted-foreground backdrop-blur">
-                HH
-              </span>
+          <div className="flex h-[280px] min-h-0 flex-col">
+            <span className="shrink-0 px-1 py-2 text-center text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+              HH
+            </span>
+            <div className="min-h-0 flex-1 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="flex flex-col gap-1 p-1">
               {hours.map((hour) => (
                 <Button
                   key={hour}
@@ -122,16 +122,18 @@ function DateTimePicker({
                   {pad(hour)}
                 </Button>
               ))}
+              </div>
             </div>
-          </ScrollArea>
+          </div>
         </div>
 
         <div className="min-w-0">
-          <ScrollArea className="h-[280px]">
-            <div className="flex flex-col gap-1 p-1">
-              <span className="sticky top-0 z-10 bg-popover/95 px-1 py-2 text-center text-[10px] font-medium uppercase tracking-wide text-muted-foreground backdrop-blur">
-                MM
-              </span>
+          <div className="flex h-[280px] min-h-0 flex-col">
+            <span className="shrink-0 px-1 py-2 text-center text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+              MM
+            </span>
+            <div className="min-h-0 flex-1 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="flex flex-col gap-1 p-1">
               {minutes.map((minute) => (
                 <Button
                   key={minute}
@@ -145,8 +147,9 @@ function DateTimePicker({
                   {pad(minute)}
                 </Button>
               ))}
+              </div>
             </div>
-          </ScrollArea>
+          </div>
         </div>
       </div>
     </div>
