@@ -1778,10 +1778,14 @@ export default function ComponentDetail({
   }, {})
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader basePath={basePath} onNavigate={onNavigate} />
-
-      <SidebarProvider className="min-h-[calc(100svh-3.5rem)] items-stretch">
-        <Sidebar collapsible="icon" className="top-14 h-[calc(100svh-3.5rem)]">
+      <SidebarProvider className="min-h-screen flex-col items-stretch">
+        <SiteHeader
+          basePath={basePath}
+          onNavigate={onNavigate}
+          showComponentSidebar
+        />
+        <div className="flex min-h-[calc(100svh-3.5rem)] flex-1 items-stretch">
+          <Sidebar collapsible="icon" className="top-14 h-[calc(100svh-3.5rem)]">
           <SidebarHeader>
             <div className="flex items-center justify-between px-2">
               <SidebarGroupLabel className="px-0 text-sm font-semibold text-sidebar-foreground">
@@ -1893,6 +1897,7 @@ export default function ComponentDetail({
             </section>
           </main>
         </SidebarInset>
+        </div>
       </SidebarProvider>
       <div className="mx-auto max-w-6xl px-5 pb-10">
         <SiteFooter />
