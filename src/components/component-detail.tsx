@@ -48,6 +48,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Calendar } from "@/components/ui/calendar"
 import { DateTimePicker } from "@/components/ui/date-time-picker"
+import { PhoneInput } from "@/components/ui/phone-input"
 import {
   Card,
   CardContent,
@@ -391,6 +392,8 @@ const componentDescriptions: Record<string, string> = {
     "Let users browse dates and select a day or a range. Calendars work well for scheduling, booking, and date-based filters.",
   "date-time-picker":
     "Let users select a date and a time in one place. The combined picker is useful for appointments, bookings, and scheduling.",
+  "phone-input":
+    "Collect an international phone number with a country selector, dialling code, and country-specific format validation.",
   card:
     "Group related information and actions into a self-contained surface. Cards help users scan dashboards, settings, and collections of content.",
   separator:
@@ -474,6 +477,7 @@ function ComponentPreview({
   const [otp, setOtp] = React.useState("123")
   const [detailsOpen, setDetailsOpen] = React.useState(true)
   const [selectedDateTime, setSelectedDateTime] = React.useState<Date | undefined>(new Date(2026, 10, 25, 14, 30))
+  const [phoneNumber, setPhoneNumber] = React.useState("")
 
   const chartConfig = {
     visitors: {
@@ -721,6 +725,16 @@ function ComponentPreview({
           />
           <p className="mt-3 text-center text-xs text-muted-foreground">
             Selected: {selectedDateTime?.toLocaleString() ?? "No date selected"}
+          </p>
+        </div>
+      )
+
+    case "phone-input":
+      return (
+        <div className="w-full max-w-sm space-y-3">
+          <PhoneInput value={phoneNumber} onChange={setPhoneNumber} />
+          <p className="text-center text-xs text-muted-foreground">
+            Phone number: {phoneNumber || "No phone number entered"}
           </p>
         </div>
       )
