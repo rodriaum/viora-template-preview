@@ -68,7 +68,7 @@ export default function SiteHeader({
         <div className="flex items-center gap-2">
 {showComponentSidebar ? (
             <SidebarTrigger
-              className="size-9 sm:hidden"
+              className="size-9 md:hidden"
               aria-label="Open component navigation"
             >
               <Menu className="size-5" />
@@ -171,7 +171,7 @@ export default function SiteHeader({
         </nav>
 
         <div className="flex items-center gap-2">
-          <span className="hidden sm:inline-flex">
+          <span className={showComponentSidebar ? "inline-flex" : "hidden sm:inline-flex"}>
             <ThemeToggle />
           </span>
           <Button
