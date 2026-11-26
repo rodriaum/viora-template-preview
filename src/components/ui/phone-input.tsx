@@ -13,50 +13,49 @@ import {
 
 export type PhoneCountry = {
   code: string
-  name: string
   dialCode: string
   pattern: RegExp
   placeholder: string
 }
 
 export const phoneCountries: PhoneCountry[] = [
-  { code: "PT", name: "Portugal", dialCode: "+351", pattern: /^9\d{8}$/, placeholder: "912 345 678" },
-  { code: "IT", name: "Italy", dialCode: "+39", pattern: /^\d{6,11}$/, placeholder: "312 345 6789" },
-  { code: "ES", name: "Spain", dialCode: "+34", pattern: /^[6-9]\d{8}$/, placeholder: "612 345 678" },
-  { code: "FR", name: "France", dialCode: "+33", pattern: /^[1-9]\d{8}$/, placeholder: "6 12 34 56 78" },
-  { code: "DE", name: "Germany", dialCode: "+49", pattern: /^[1-9]\d{5,13}$/, placeholder: "151 23456789" },
-  { code: "GB", name: "United Kingdom", dialCode: "+44", pattern: /^7\d{9}$/, placeholder: "7400 123456" },
-  { code: "US", name: "United States", dialCode: "+1", pattern: /^[2-9]\d{9}$/, placeholder: "(201) 555-0123" },
-  { code: "CA", name: "Canada", dialCode: "+1", pattern: /^[2-9]\d{9}$/, placeholder: "(204) 234-5678" },
-  { code: "BR", name: "Brazil", dialCode: "+55", pattern: /^[1-9]{2}9?\d{8}$/, placeholder: "(11) 91234-5678" },
-  { code: "NL", name: "Netherlands", dialCode: "+31", pattern: /^6\d{8}$/, placeholder: "6 12345678" },
-  { code: "BE", name: "Belgium", dialCode: "+32", pattern: /^4\d{8}$/, placeholder: "470 12 34 56" },
-  { code: "CH", name: "Switzerland", dialCode: "+41", pattern: /^\d{9}$/, placeholder: "78 123 45 67" },
-  { code: "AT", name: "Austria", dialCode: "+43", pattern: /^\d{7,13}$/, placeholder: "664 123456" },
-  { code: "IE", name: "Ireland", dialCode: "+353", pattern: /^8\d{8}$/, placeholder: "85 123 4567" },
-  { code: "PL", name: "Poland", dialCode: "+48", pattern: /^[4-8]\d{8}$/, placeholder: "512 345 678" },
-  { code: "GR", name: "Greece", dialCode: "+30", pattern: /^6\d{9}$/, placeholder: "691 234 5678" },
-  { code: "SE", name: "Sweden", dialCode: "+46", pattern: /^7\d{8}$/, placeholder: "70 123 45 67" },
-  { code: "NO", name: "Norway", dialCode: "+47", pattern: /^[49]\d{7}$/, placeholder: "412 34 567" },
-  { code: "DK", name: "Denmark", dialCode: "+45", pattern: /^[2-9]\d{7}$/, placeholder: "20 12 34 56" },
-  { code: "FI", name: "Finland", dialCode: "+358", pattern: /^\d{7,10}$/, placeholder: "40 1234567" },
-  { code: "AU", name: "Australia", dialCode: "+61", pattern: /^4\d{8}$/, placeholder: "412 345 678" },
-  { code: "NZ", name: "New Zealand", dialCode: "+64", pattern: /^2\d{7,9}$/, placeholder: "21 123 4567" },
-  { code: "MX", name: "Mexico", dialCode: "+52", pattern: /^[2-9]\d{9}$/, placeholder: "55 1234 5678" },
-  { code: "AR", name: "Argentina", dialCode: "+54", pattern: /^\d{10,11}$/, placeholder: "11 2345 6789" },
-  { code: "JP", name: "Japan", dialCode: "+81", pattern: /^[1-9]\d{8,9}$/, placeholder: "90 1234 5678" },
-  { code: "KR", name: "South Korea", dialCode: "+82", pattern: /^1\d{8,9}$/, placeholder: "10 1234 5678" },
-  { code: "IN", name: "India", dialCode: "+91", pattern: /^[6-9]\d{9}$/, placeholder: "98765 43210" },
-  { code: "CN", name: "China", dialCode: "+86", pattern: /^1\d{10}$/, placeholder: "131 2345 6789" },
-  { code: "TR", name: "Türkiye", dialCode: "+90", pattern: /^5\d{9}$/, placeholder: "501 234 56 78" },
-  { code: "UA", name: "Ukraine", dialCode: "+380", pattern: /^\d{9}$/, placeholder: "50 123 4567" },
-  { code: "ZA", name: "South Africa", dialCode: "+27", pattern: /^[6-8]\d{8}$/, placeholder: "82 123 4567" },
-  { code: "AE", name: "United Arab Emirates", dialCode: "+971", pattern: /^5\d{8}$/, placeholder: "50 123 4567" },
+  { code: "PT", dialCode: "+351", pattern: /^9\d{8}$/, placeholder: "912 345 678" },
+  { code: "IT", dialCode: "+39", pattern: /^\d{6,11}$/, placeholder: "312 345 6789" },
+  { code: "ES", dialCode: "+34", pattern: /^[6-9]\d{8}$/, placeholder: "612 345 678" },
+  { code: "FR", dialCode: "+33", pattern: /^[1-9]\d{8}$/, placeholder: "6 12 34 56 78" },
+  { code: "DE", dialCode: "+49", pattern: /^[1-9]\d{5,13}$/, placeholder: "151 23456789" },
+  { code: "GB", dialCode: "+44", pattern: /^7\d{9}$/, placeholder: "7400 123456" },
+  { code: "US", dialCode: "+1", pattern: /^[2-9]\d{9}$/, placeholder: "(201) 555-0123" },
+  { code: "CA", dialCode: "+1", pattern: /^[2-9]\d{9}$/, placeholder: "(204) 234-5678" },
+  { code: "BR", dialCode: "+55", pattern: /^[1-9]{2}9?\d{8}$/, placeholder: "(11) 91234-5678" },
+  { code: "NL", dialCode: "+31", pattern: /^6\d{8}$/, placeholder: "6 12345678" },
+  { code: "BE", dialCode: "+32", pattern: /^4\d{8}$/, placeholder: "470 12 34 56" },
+  { code: "CH", dialCode: "+41", pattern: /^\d{9}$/, placeholder: "78 123 45 67" },
+  { code: "AT", dialCode: "+43", pattern: /^\d{7,13}$/, placeholder: "664 123456" },
+  { code: "IE", dialCode: "+353", pattern: /^8\d{8}$/, placeholder: "85 123 4567" },
+  { code: "PL", dialCode: "+48", pattern: /^[4-8]\d{8}$/, placeholder: "512 345 678" },
+  { code: "GR", dialCode: "+30", pattern: /^6\d{9}$/, placeholder: "691 234 5678" },
+  { code: "SE", dialCode: "+46", pattern: /^7\d{8}$/, placeholder: "70 123 45 67" },
+  { code: "NO", dialCode: "+47", pattern: /^[49]\d{7}$/, placeholder: "412 34 567" },
+  { code: "DK", dialCode: "+45", pattern: /^[2-9]\d{7}$/, placeholder: "20 12 34 56" },
+  { code: "FI", dialCode: "+358", pattern: /^\d{7,10}$/, placeholder: "40 1234567" },
+  { code: "AU", dialCode: "+61", pattern: /^4\d{8}$/, placeholder: "412 345 678" },
+  { code: "NZ", dialCode: "+64", pattern: /^2\d{7,9}$/, placeholder: "21 123 4567" },
+  { code: "MX", dialCode: "+52", pattern: /^[2-9]\d{9}$/, placeholder: "55 1234 5678" },
+  { code: "AR", dialCode: "+54", pattern: /^\d{10,11}$/, placeholder: "11 2345 6789" },
+  { code: "JP", dialCode: "+81", pattern: /^[1-9]\d{8,9}$/, placeholder: "90 1234 5678" },
+  { code: "KR", dialCode: "+82", pattern: /^1\d{8,9}$/, placeholder: "10 1234 5678" },
+  { code: "IN", dialCode: "+91", pattern: /^[6-9]\d{9}$/, placeholder: "98765 43210" },
+  { code: "CN", dialCode: "+86", pattern: /^1\d{10}$/, placeholder: "131 2345 6789" },
+  { code: "TR", dialCode: "+90", pattern: /^5\d{9}$/, placeholder: "501 234 56 78" },
+  { code: "UA", dialCode: "+380", pattern: /^\d{9}$/, placeholder: "50 123 4567" },
+  { code: "ZA", dialCode: "+27", pattern: /^[6-8]\d{8}$/, placeholder: "82 123 4567" },
+  { code: "AE", dialCode: "+971", pattern: /^5\d{8}$/, placeholder: "50 123 4567" },
 ]
 
 const sortedCountries = phoneCountries
   .slice()
-  .sort((a, b) => a.name.localeCompare(b.name))
+  .sort((a, b) => a.code.localeCompare(b.code))
 
 // Lets the trigger show "+351" instead of the raw value "PT".
 const selectItems = sortedCountries.map((country) => ({
