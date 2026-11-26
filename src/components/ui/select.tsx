@@ -112,12 +112,11 @@ function SelectContent({
   align = "center",
   alignOffset = 0,
   alignItemWithTrigger = true,
-  positionMethod = "absolute",
   ...props
 }: SelectPrimitive.Popup.Props &
   Pick<
     SelectPrimitive.Positioner.Props,
-    "align" | "alignOffset" | "side" | "sideOffset" | "alignItemWithTrigger" | "positionMethod"
+    "align" | "alignOffset" | "side" | "sideOffset" | "alignItemWithTrigger"
   >) {
   return (
     <SelectPrimitive.Portal>
@@ -127,7 +126,6 @@ function SelectContent({
         align={align}
         alignOffset={alignOffset}
         alignItemWithTrigger={alignItemWithTrigger}
-        positionMethod={positionMethod}
         className="isolate z-50"
       >
         <SelectPrimitive.Popup
@@ -216,7 +214,7 @@ function SelectScrollUpButton({
     <SelectPrimitive.ScrollUpArrow
       data-slot="select-scroll-up-button"
       className={cn(
-        "top-0 z-10 flex w-full cursor-default items-center justify-center bg-popover py-1 [&_svg:not([class*='size-'])]:size-4",
+        "absolute inset-x-0 top-0 z-10 flex w-full cursor-default items-center justify-center bg-popover/95 py-1 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
@@ -235,7 +233,7 @@ function SelectScrollDownButton({
     <SelectPrimitive.ScrollDownArrow
       data-slot="select-scroll-down-button"
       className={cn(
-        "bottom-0 z-10 flex w-full cursor-default items-center justify-center bg-popover py-1 [&_svg:not([class*='size-'])]:size-4",
+        "absolute inset-x-0 bottom-0 z-10 flex w-full cursor-default items-center justify-center bg-popover/95 py-1 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
