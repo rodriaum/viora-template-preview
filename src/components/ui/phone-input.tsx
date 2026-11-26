@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { cn } from "cn"
+import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
@@ -53,6 +54,16 @@ export const phoneCountries: PhoneCountry[] = [
   { code: "AE", name: "United Arab Emirates", dialCode: "+971", pattern: /^5\d{8}$/, placeholder: "50 123 4567" },
 ]
 
+const sortedCountries = phoneCountries
+  .slice()
+  .sort((a, b) => a.name.localeCompare(b.name))
+
+// Lets the trigger show "+351" instead of the raw value "PT".
+const selectItems = sortedCountries.map((country) => ({
+  value: country.code,
+  label: country.dialCode,
+}))
+
 type PhoneInputProps = Omit<
   React.ComponentProps<"input">,
   "value" | "defaultValue" | "onChange"
@@ -69,35 +80,41 @@ function getDigits(value: string) {
   return value.replace(/\D/g, "")
 }
 
-function formatPhoneNumber(value: string, countryCode: string) {
+/** Detects the country from an E.164 value, preferring the longest dial code match. */
+function detectCountry(value: string, preferredCode: string) {
+  if (!value.startsWith("+")) return undefined
+
+  const matches = phoneCountries.filter((item) =>
+    value.startsWith(item.dialCode)
+  )
+  if (matches.length === 0) return undefined
+
+  const longest = Math.max(...matches.map((item) => item.dialCode.length))
+  const best = matches.filter((item) => item.dialCode.length === longest)
+
+  return best.find((item) => item.code === preferredCode) ?? best[0]
+}
+
+/** Formats digits using the country placeholder as a mask (e.g. "(##) #####-####"). */
+function formatPhoneNumber(value: string, country: PhoneCountry) {
   const digits = getDigits(value)
+  const mask = country.placeholder.replace(/\d/g, "#")
 
-  if (countryCode === "BR") {
-    const areaCode = digits.slice(0, 2)
-    const subscriber = digits.slice(2)
+  let formatted = ""
+  let index = 0
 
-    if (digits.length <= 2) {
-      return areaCode ? `(${areaCode}` : ""
+  for (const char of mask) {
+    if (index >= digits.length) break
+
+    if (char === "#") {
+      formatted += digits[index]
+      index += 1
+    } else {
+      formatted += char
     }
-
-    if (subscriber.length <= 4) {
-      return `(${areaCode}) ${subscriber}`
-    }
-
-    if (digits.length <= 10) {
-      return `(${areaCode}) ${subscriber.slice(0, 4)}-${subscriber.slice(4, 8)}`
-    }
-
-    return `(${areaCode}) ${subscriber.slice(0, 5)}-${subscriber.slice(5, 9)}`
   }
 
-  if (countryCode === "PT") {
-    return [digits.slice(0, 3), digits.slice(3, 6), digits.slice(6, 9)]
-      .filter(Boolean)
-      .join(" ")
-  }
-
-  return digits
+  return formatted + digits.slice(index)
 }
 
 function PhoneInput({
@@ -113,11 +130,16 @@ function PhoneInput({
   ...props
 }: PhoneInputProps) {
   const [internalValue, setInternalValue] = React.useState(defaultValue)
-  const [countryCode, setCountryCode] = React.useState(defaultCountry)
+  const [selectedCode, setSelectedCode] = React.useState(defaultCountry)
 
-  const country =
-    phoneCountries.find((item) => item.code === countryCode) ?? phoneCountries[0]
   const currentValue = value ?? internalValue
+
+  // In controlled mode the country comes from the value prefix.
+  const country =
+    detectCountry(currentValue, selectedCode) ??
+    phoneCountries.find((item) => item.code === selectedCode) ??
+    phoneCountries[0]
+
   const nationalNumber = currentValue.startsWith(country.dialCode)
     ? currentValue.slice(country.dialCode.length)
     : currentValue
@@ -140,7 +162,7 @@ function PhoneInput({
     const nextCountry =
       phoneCountries.find((item) => item.code === nextCode) ?? phoneCountries[0]
 
-    setCountryCode(nextCountry.code)
+    setSelectedCode(nextCountry.code)
     onCountryChange?.(nextCountry)
 
     if (digits) {
@@ -148,15 +170,10 @@ function PhoneInput({
     }
   }
 
-  const sortedCountries = React.useMemo(
-    () => phoneCountries.slice().sort((a, b) => a.name.localeCompare(b.name)),
-    []
-  )
-
   return (
     <div
       className={cn(
-        "flex h-10 w-full min-w-0 items-center rounded-4xl border border-input bg-input/30 transition-colors focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50",
+        "flex h-9 w-full min-w-0 items-center rounded-4xl border border-input bg-input/30 transition-colors focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50",
         (invalid || !isValid) &&
           "border-destructive focus-within:border-destructive focus-within:ring-destructive/20",
         disabled && "pointer-events-none cursor-not-allowed opacity-50",
@@ -164,27 +181,21 @@ function PhoneInput({
       )}
     >
       <Select
+        items={selectItems}
         value={country.code}
         onValueChange={handleCountryChange}
         disabled={disabled}
       >
         <SelectTrigger
           aria-label="Select country calling code"
-          className="h-full w-[5.5rem] shrink-0 justify-between rounded-l-4xl rounded-r-none border-0 bg-transparent px-3 py-0 font-medium shadow-none focus-visible:ring-0"
+          className="h-full w-auto shrink-0 rounded-l-4xl rounded-r-none border-0 bg-transparent shadow-none ring-0 hover:bg-transparent focus-visible:ring-0 data-[size=default]:h-full dark:bg-transparent dark:hover:bg-transparent"
         >
-          <SelectValue placeholder={country.dialCode} />
+          <SelectValue />
         </SelectTrigger>
-        <SelectContent
-          side="bottom"
-          align="start"
-          sideOffset={4}
-          alignItemWithTrigger={false}
-          className="w-64 max-h-64"
-        >
+        <SelectContent>
           {sortedCountries.map((item) => (
-            <SelectItem key={item.code} value={item.code} label={item.dialCode}>
-              <span className="flex-1">{item.name}</span>
-              <span className="text-muted-foreground">{item.dialCode}</span>
+            <SelectItem key={item.code} value={item.code} label={item.code}>
+              {item.code} ({item.dialCode})
             </SelectItem>
           ))}
         </SelectContent>
@@ -192,16 +203,16 @@ function PhoneInput({
 
       <div className="h-5 w-px shrink-0 bg-border" />
 
-      <input
+      <Input
         type="tel"
         inputMode="tel"
         autoComplete="tel-national"
-        value={formatPhoneNumber(digits, country.code)}
+        value={formatPhoneNumber(digits, country)}
         onChange={(event) => handleValueChange(event.target.value)}
         placeholder={placeholder ?? country.placeholder}
         disabled={disabled}
         aria-invalid={invalid || !isValid}
-        className="h-full min-w-0 flex-1 rounded-r-4xl bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground"
+        className="h-full min-w-0 flex-1 rounded-l-none rounded-r-4xl border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent"
         {...props}
       />
     </div>
