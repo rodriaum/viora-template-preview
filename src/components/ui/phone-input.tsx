@@ -134,8 +134,8 @@ function PhoneInput({
     onChange?.(nextDigits ? `${country.dialCode}${nextDigits}` : "", country)
   }
 
-  const handleCountryChange = (nextCode: string | null) => {
-    if (!nextCode) return
+  const handleCountryChange = (nextCode: unknown) => {
+    if (typeof nextCode !== "string" || !nextCode) return
 
     const nextCountry =
       phoneCountries.find((item) => item.code === nextCode) ?? phoneCountries[0]
