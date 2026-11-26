@@ -143,7 +143,14 @@ function PhoneInput({
         >
           <SelectValue placeholder={country.dialCode} />
         </SelectTrigger>
-        <SelectContent className="max-h-64">
+        <SelectContent
+          side="bottom"
+          align="start"
+          sideOffset={4}
+          alignItemWithTrigger={false}
+          positionMethod="fixed"
+          className="max-h-64"
+        >
           {sortedCountries.map((item) => (
             <SelectItem key={item.code} value={item.code} label={item.dialCode}>
               <span className="flex-1">{item.name}</span>
