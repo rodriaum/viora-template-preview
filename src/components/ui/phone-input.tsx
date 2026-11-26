@@ -69,6 +69,37 @@ function getDigits(value: string) {
   return value.replace(/\D/g, "")
 }
 
+function formatPhoneNumber(value: string, countryCode: string) {
+  const digits = getDigits(value)
+
+  if (countryCode === "BR") {
+    const areaCode = digits.slice(0, 2)
+    const subscriber = digits.slice(2)
+
+    if (digits.length <= 2) {
+      return areaCode ? `(${areaCode}` : ""
+    }
+
+    if (subscriber.length <= 4) {
+      return `(${areaCode}) ${subscriber}`
+    }
+
+    if (digits.length <= 10) {
+      return `(${areaCode}) ${subscriber.slice(0, 4)}-${subscriber.slice(4, 8)}`
+    }
+
+    return `(${areaCode}) ${subscriber.slice(0, 5)}-${subscriber.slice(5, 9)}`
+  }
+
+  if (countryCode === "PT") {
+    return [digits.slice(0, 3), digits.slice(3, 6), digits.slice(6, 9)]
+      .filter(Boolean)
+      .join(" ")
+  }
+
+  return digits
+}
+
 function PhoneInput({
   value,
   defaultValue = "",
@@ -166,7 +197,7 @@ function PhoneInput({
         type="tel"
         inputMode="tel"
         autoComplete="tel-national"
-        value={digits}
+        value={formatPhoneNumber(digits, country.code)}
         onChange={(event) => handleValueChange(event.target.value)}
         placeholder={placeholder ?? country.placeholder}
         disabled={disabled}
