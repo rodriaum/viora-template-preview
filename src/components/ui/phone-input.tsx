@@ -179,8 +179,7 @@ function PhoneInput({
           align="start"
           sideOffset={4}
           alignItemWithTrigger={false}
-          positionMethod="fixed"
-          className="max-h-64"
+          className="w-64 max-h-64"
         >
           {sortedCountries.map((item) => (
             <SelectItem key={item.code} value={item.code} label={item.dialCode}>
